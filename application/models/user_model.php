@@ -32,7 +32,29 @@ class User_model extends CI_Model {
     }
 
     public function encode($value = null) {
-        return md5($value + rand(1000, 9999));
+        return md5($value);
+    }
+    
+    public function _authen_admin($user,$pass){ 
+        $this->db->where(array(
+            "username"=>$user,
+            "password"=>$this->encode($pass), 
+        ));
+        $query = $this->db->get('bm_admin');  
+        if($query->num_rows() > 0){ 
+            $this->_update_login($user);
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public function _update_login($username){
+        $data = array(
+            'datelogin' => date("Y-m-d h:s:m"),
+        );
+        $this->db->where('username', $username);
+        $this->db->update('bm_admin', $data); 
     }
 
     public function _authentication($username, $password) {
