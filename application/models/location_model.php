@@ -31,11 +31,24 @@ class Location_model extends CI_Model {
         }
     }
     
+     public function _list_diff($id=null) {
+         $this->db->where('id !=', $id);
+        $this->db->order_by('id', 'DESC');
+        $query = $this->db->get('bm_location');
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return null;
+        }
+    }
+    
+    
+    
     
     public function _add($name,$root,$active) {
         $data = array(
-            'location_name' => $catename,
-            'location_root' => $cateroot,
+            'location_name' => $name,
+            'location_root' => $root,
             'active' => $active, 
         );
         $this->db->insert('bm_location', $data);
@@ -44,8 +57,8 @@ class Location_model extends CI_Model {
     
     public function _update($id,$name,$root,$active) {
         $data = array(
-            'location_name' => $catename,
-            'location_root' => $cateroot,
+            'location_name' => $name,
+            'location_root' => $root,
             'active' => $active, 
         );
         $this->db->where('id', $id);

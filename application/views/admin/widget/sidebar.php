@@ -9,14 +9,14 @@
 <h3>Nội dung</h3>
 <ul class="toggle">
     <li class="icn_new_article"><a href="<?php echo site_url('admin/category/index');?>">Quản lý danh mục</a></li>
-    <li class="icn_edit_article"><a href="#">Quản lý địa điểm, khu vực</a></li>
-    <li class="icn_categories"><a href="#">Quản lý nội dung tin</a></li>
+    <li class="icn_edit_article"><a href="<?php echo site_url('admin/location/index');?>">Quản lý địa điểm, khu vực</a></li>
+    <li class="icn_categories"><a href="<?php echo site_url('admin/content/index');?>">Quản lý nội dung tin</a></li>
     <li class="icn_tags"><a href="#">Tags</a></li>
 </ul>
 <h3>Users</h3>
 <ul class="toggle">
-    <li class="icn_add_user"><a href="#">Add New User</a></li>
-    <li class="icn_view_users"><a href="#">View Users</a></li>
+    <li class="icn_add_user"><a href="<?php echo site_url('admin/user/index');?>">Quản lý thành viên</a></li>
+    <li class="icn_view_users"><a href="#"></a></li>
     <li class="icn_profile"><a href="#">Your Profile</a></li>
 </ul>
 <h3>Media</h3>
@@ -28,7 +28,7 @@
 </ul>
 <h3>Admin</h3>
 <ul class="toggle">
-    <li class="icn_settings"><a href="#">Tuỳ chọn cấu hình site</a></li>
+    <li class="icn_settings"><a href="<?php echo site_url('admin/config/index');?>">Tuỳ chọn cấu hình site</a></li>
     <li class="icn_security"><a href="#">Bảo mật</a></li>
     <li class="icn_jump_back"><a href="<?php echo site_url('admincp/logout');?>">Logout</a></li>
 </ul>

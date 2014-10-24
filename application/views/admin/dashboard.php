@@ -46,9 +46,9 @@
                 <?php if ($this->router->fetch_method() == 'index'): ?>
                     <?php $this->load->view('admin/category/index'); ?>
                 <?php endif; ?>
-            <?php if($this->router->fetch_method() == 'edit'):?>
-                <?php $this->load->view('admin/category/edit');?>
-            <?php endif;?>
+                <?php if ($this->router->fetch_method() == 'edit'): ?>
+                    <?php $this->load->view('admin/category/edit'); ?>
+                <?php endif; ?>
             <?php endif; ?>
 
 
@@ -68,6 +68,9 @@
             <?php if ($this->router->class == 'location'): ?>
                 <?php if ($this->router->fetch_method() == 'index'): ?>
                     <?php $this->load->view('admin/location/index'); ?>
+                <?php endif; ?>
+                <?php if ($this->router->fetch_method() == 'edit'): ?>
+                    <?php $this->load->view('admin/location/edit'); ?>
                 <?php endif; ?>
             <?php endif; ?>
 
