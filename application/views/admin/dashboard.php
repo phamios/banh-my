@@ -18,7 +18,9 @@
 
         <header id="header">
             <hgroup>
-                <h1 class="site_title"><a href="#">Admin Panel</a></h1> 
+                <h1 class="site_title">
+                    <a href="#">Admin Panel</a>
+                </h1> 
             </hgroup>
         </header> <!-- end of header bar -->
 
@@ -30,8 +32,9 @@
             <?php $this->load->view('admin/widget/sidebar'); ?>
         </aside><!-- end of sidebar -->
 
+        <!-- MAIN BOARD -->
         <section id="main" class="column">
-            
+
             <?php if ($this->router->class == 'admincp'): ?>
                 <?php if ($this->router->fetch_method() == 'index'): ?>
                     <?php $this->load->view('admin/home/index'); ?>
@@ -39,8 +42,41 @@
             <?php endif; ?>
 
 
-        </section>
+            <?php if ($this->router->class == 'category'): ?>
+                <?php if ($this->router->fetch_method() == 'index'): ?>
+                    <?php $this->load->view('admin/category/index'); ?>
+                <?php endif; ?>
+            <?php endif; ?>
 
+
+            <?php if ($this->router->class == 'config'): ?>
+                <?php if ($this->router->fetch_method() == 'index'): ?>
+                    <?php $this->load->view('admin/config/index'); ?>
+                <?php endif; ?>
+            <?php endif; ?>
+
+
+            <?php if ($this->router->class == 'report'): ?>
+                <?php if ($this->router->fetch_method() == 'index'): ?>
+                    <?php $this->load->view('admin/report/index'); ?>
+                <?php endif; ?>
+            <?php endif; ?>
+
+            <?php if ($this->router->class == 'location'): ?>
+                <?php if ($this->router->fetch_method() == 'index'): ?>
+                    <?php $this->load->view('admin/location/index'); ?>
+                <?php endif; ?>
+            <?php endif; ?>
+
+
+            <?php if ($this->router->class == 'user'): ?>
+                <?php if ($this->router->fetch_method() == 'index'): ?>
+                    <?php $this->load->view('admin/user/index'); ?>
+                <?php endif; ?>
+            <?php endif; ?>
+
+        </section>
+        <!-- MAIN BOARD -->
 
     </body>
 

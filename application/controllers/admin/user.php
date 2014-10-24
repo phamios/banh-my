@@ -28,4 +28,6 @@ class user extends CI_Controller {
             $this->load->view('admin/dashboard');
         }
     }
+    
+    
 }
