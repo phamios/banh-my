@@ -6,11 +6,11 @@
             this._haschanged = true;">
 </form>
 <hr/>
-<h3>Content</h3>
+<h3>Nội dung</h3>
 <ul class="toggle">
-    <li class="icn_new_article"><a href="#">New Article</a></li>
-    <li class="icn_edit_article"><a href="#">Edit Articles</a></li>
-    <li class="icn_categories"><a href="#">Categories</a></li>
+    <li class="icn_new_article"><a href="<?php echo site_url('admin/category/index');?>">Quản lý danh mục</a></li>
+    <li class="icn_edit_article"><a href="#">Quản lý địa điểm, khu vực</a></li>
+    <li class="icn_categories"><a href="#">Quản lý nội dung tin</a></li>
     <li class="icn_tags"><a href="#">Tags</a></li>
 </ul>
 <h3>Users</h3>
@@ -28,9 +28,9 @@
 </ul>
 <h3>Admin</h3>
 <ul class="toggle">
-    <li class="icn_settings"><a href="#">Options</a></li>
-    <li class="icn_security"><a href="#">Security</a></li>
-    <li class="icn_jump_back"><a href="#">Logout</a></li>
+    <li class="icn_settings"><a href="#">Tuỳ chọn cấu hình site</a></li>
+    <li class="icn_security"><a href="#">Bảo mật</a></li>
+    <li class="icn_jump_back"><a href="<?php echo site_url('admincp/logout');?>">Logout</a></li>
 </ul>
 
 <footer>

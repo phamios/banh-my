@@ -19,7 +19,7 @@
         <header id="header">
             <hgroup>
                 <h1 class="site_title">
-                    <a href="#">Admin Panel</a>
+                    <a href="#">Quản trị hệ thống</a>
                 </h1> 
             </hgroup>
         </header> <!-- end of header bar -->
@@ -46,6 +46,9 @@
                 <?php if ($this->router->fetch_method() == 'index'): ?>
                     <?php $this->load->view('admin/category/index'); ?>
                 <?php endif; ?>
+            <?php if($this->router->fetch_method() == 'edit'):?>
+                <?php $this->load->view('admin/category/edit');?>
+            <?php endif;?>
             <?php endif; ?>
 
 
