@@ -11,7 +11,7 @@
     <li class="icn_new_article"><a href="<?php echo site_url('admin/category/index');?>">Quản lý danh mục</a></li>
     <li class="icn_edit_article"><a href="<?php echo site_url('admin/location/index');?>">Quản lý địa điểm, khu vực</a></li>
     <li class="icn_categories"><a href="<?php echo site_url('admin/content/index');?>">Quản lý nội dung tin</a></li>
-    <li class="icn_tags"><a href="#">Tags</a></li>
+    <li class="icn_tags"><a href="<?php echo site_url('admin/type/index');?>">Quản lý thể loại</a></li>
 </ul>
 <h3>Users</h3>
 <ul class="toggle">

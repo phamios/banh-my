@@ -64,7 +64,7 @@
                         <option value="0">----------------------</option>
                        <?php if ($list_location): ?>
                             <?php foreach($list_location as $local):?>
-                                 <option value="<?php echo $local->id?>"><?php echo $local->cate_name;?></option>
+                                 <option value="<?php echo $local->id?>"><?php echo $local->location_name;?></option>
                             <?php endforeach;?>
                         <?php endif;?>
                     </select>

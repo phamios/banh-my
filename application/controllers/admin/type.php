@@ -5,7 +5,7 @@ if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 session_start();
 
-class Location extends CI_Controller {
+class Type extends CI_Controller {
 
     function __construct() {
         parent::__construct();
@@ -17,7 +17,7 @@ class Location extends CI_Controller {
         $this->load->helper('cookie');
         $this->load->helper('text');
         $this->load->library('tools_lib');
-         $this->load->model('location_model');
+         $this->load->model('type_model');
         $this->load->helper(array('form', 'url'));
         @session_start();
     }
@@ -26,7 +26,7 @@ class Location extends CI_Controller {
         if ($this->session->userdata('adminusername') == null) {
             redirect('admincp/login');
         } else { 
-            $data['list_location'] = $this->location_model->_list();
+            $data['list_type'] = $this->type_model->_list();
             $this->load->view('admin/dashboard',$data);
         }
     }
@@ -37,12 +37,9 @@ class Location extends CI_Controller {
             redirect('admincp/login');
         } else {
             if (isset($_REQUEST['btt_submit'])) {
-                $local_name = $this->input->post('location_name', true);
-                $local_root = $this->input->post('location_root', true);
-                $active =$this->input->post('location_active',true); 
-                
-                $this->location_model->_add($local_name,$local_root,$active);
-                redirect('admin/location/index');
+                $typename = $this->input->post('type_name', true); 
+                $this->type_model->_add($typename);
+                redirect('admin/type/index');
             }
             $this->load->view('admin/dashboard');
         }
@@ -53,14 +50,12 @@ class Location extends CI_Controller {
             redirect('admincp/login');
         } else {
             if (isset($_REQUEST['btt_submit'])) {
-                $name = $this->input->post('location_name', true);
-                $root = $this->input->post('lcation_root', true);
-                $active =$this->input->post('location_active',true); 
-                $this->location_model->_update($id,$name,$root,$active);
-                redirect('admin/location/index');
+                $type_name = $this->input->post('type_name', true); 
+                $this->type_model->_update($id,$type_name);
+                redirect('admin/type/index');
             }
-            $data['location'] = $this->location_model->_details($id);
-            $data['list_location'] = $this->location_model->_list_diff($id);
+            $data['type'] = $this->type_model->_details($id);
+            $data['list_type'] = $this->type_model->_list_diff($id);
             $this->load->view('admin/dashboard',$data);
         }
     }
@@ -69,20 +64,12 @@ class Location extends CI_Controller {
         if ($this->session->userdata('adminusername') == null) {
             redirect('admincp/login');
         } else {
-           $this->location_model->_del($id);
-            redirect('admin/location/index');
+           $this->type_model->_del($id);
+            redirect('admin/type/index');
         }
     }
     
-    public function status($id=null,$active=null){
-        if ($this->session->userdata('adminusername') == null) {
-            redirect('admincp/login');
-        } else {
-            $this->location_model->_update_status($id,$active);
-            redirect('admin/location/index');
-        }
-    }
-    
+   
     
     
     

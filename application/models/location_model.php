@@ -77,7 +77,7 @@ class Location_model extends CI_Model {
     
     function _del($id) {  
         $this->db->where('id', $id);
-        $this->db->delete('bm_category');
+        $this->db->delete('bm_location');
     }
 
 }
