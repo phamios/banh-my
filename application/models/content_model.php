@@ -21,6 +21,8 @@ class Content_model extends CI_Model {
         }
     }
     
+    
+    
      public function _list_diff($id=null) {
         $this->db->where('id !=', $id);
         $this->db->order_by('id', 'DESC');
@@ -65,7 +67,7 @@ class Content_model extends CI_Model {
         }
     }
 
-    public function _add($localid,$catecontentid,$typeid,$userid,$title,$content,$gallery_id,$cost,$status,$review) {
+    public function _add($localid,$catecontentid,$typeid,$userid,$title,$content,$gallery_id,$images,$cost,$status,$review) {
         $data = array(
             'localid' => $localid,
             'catecontentid' => $catecontentid,
@@ -74,6 +76,7 @@ class Content_model extends CI_Model {
             'title' => $title,
             'content' => $content,
             'gallery_id' => $gallery_id,
+             'images'=>$images,
             'cost' => $cost,
             'datecreated' => date("Y-m-d h:s:m"),
             'status' => $status,
@@ -83,7 +86,7 @@ class Content_model extends CI_Model {
         return 1;
     }
     
-    public function _update($id,$localid,$catecontentid,$typeid,$userid,$title,$content,$gallery_id,$cost,$status,$review) {
+    public function _update($id,$localid,$catecontentid,$typeid,$userid,$title,$content,$gallery_id,$images,$cost,$status,$review) {
         $data = array(
             'localid' => $localid,
             'catecontentid' => $catecontentid,
@@ -92,6 +95,7 @@ class Content_model extends CI_Model {
             'title' => $title,
             'content' => $content,
             'gallery_id' => $gallery_id,
+            'images'=>$images,
             'cost' => $cost,
             'datecreated' => date("Y-m-d h:s:m"),
             'status' => $status,
@@ -104,7 +108,7 @@ class Content_model extends CI_Model {
     
     public function _update_status($id,$active){
         $data = array(
-            'active' => $active, 
+            'status' => $active, 
         );
         $this->db->where('id', $id);
         $this->db->update('bm_content', $data);

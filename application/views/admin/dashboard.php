@@ -60,18 +60,7 @@
                     <?php $this->load->view('admin/type/edit'); ?>
                 <?php endif; ?>
             <?php endif; ?>
-            
-            
-            <?php if ($this->router->class == 'content'): ?>
-                <?php if ($this->router->fetch_method() == 'index'): ?>
-                    <?php $this->load->view('admin/content/index'); ?>
-                <?php endif; ?>
-                <?php if ($this->router->fetch_method() == 'edit'): ?>
-                    <?php $this->load->view('admin/content/edit'); ?>
-                <?php endif; ?>
-            <?php endif; ?>
-            
-            
+  
             <?php if ($this->router->class == 'config'): ?>
                 <?php if ($this->router->fetch_method() == 'index'): ?>
                     <?php $this->load->view('admin/config/index'); ?>
