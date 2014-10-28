@@ -10,6 +10,59 @@ class Search_model extends CI_Model {
         parent::__construct();
         $this->load->database();
     }
+    
+    
+
+    public function get_result($keyword = null, $cost = null, $cateid = null) {
+        $sql = "SELECT bm_content.id, 
+                    bm_content.localid, 
+                    bm_content.typeid, 
+                    bm_content.userid, 
+                    bm_content.title, 
+                    bm_content.content, 
+                    bm_content.gallery_id, 
+                    bm_content.images, 
+                    bm_content.cost, 
+                    bm_content.datecreated, 
+                    bm_content.`status`, 
+                    bm_content.review, 
+                    bm_content.`view`, 
+                    bm_location.id as location_id, 
+                    bm_location.location_name, 
+                    bm_location.location_root, 
+                    bm_location.active, 
+                    bm_catecontent.cateid, 
+                    bm_catecontent.contentid, 
+                    bm_category.cate_name, 
+                    bm_category.cate_root, 
+                    bm_category.active, 
+                    bm_category.cate_image, 
+                    bm_category.id
+            FROM bm_category INNER JOIN bm_catecontent ON bm_category.id = bm_catecontent.cateid
+                     INNER JOIN bm_content ON bm_content.id = bm_catecontent.contentid
+                     INNER JOIN bm_location ON bm_location.id = bm_content.localid  
+                     WHERE (1=1)
+                     
+                ";
+        
+//        $where= array(); 
+        if (strlen($keyword) > 0) {
+            $sql .= " AND bm_content.title like '".htmlentities(addslashes($keyword))."%' ";
+        }
+        if ($cost <> 0) {
+            $sql .= " AND  0 < bm_content.cost <= $cost ";
+        }
+        if ($cateid <> 0) {
+            $sql .= "  AND  bm_category.id = $cateid ";
+        }
+
+        $query = $this->db->query($sql) ;
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return null;
+        }
+    }
 
     public function _list() {
         $this->db->order_by('id', 'DESC');

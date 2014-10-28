@@ -20,17 +20,18 @@ tinymce.init({
                 <thead> 
                     <tr> 
                         <th></th> 
-                        <th>Người đăng</th> 
-                        <th> Địa điểm</th>  
-                        <th>Thể loại</th> 
-                        <th>Tiêu đề </th>
-                        <th> Giới thiệu  </th> 
-                        <th>Ảnh đại diện </th> 
-                        <th>Giá tiền </th> 
-                        <th>Ngày cập nhật  </th> 
-                        <th>Đánh giá</th>
-                        <th>Tình trạng </th> 
-                        <th>Tuỳ chỉnh </th> 
+                        <th>Title</th>
+                        <th>User</th> 
+                        <th>Location</th>  
+                        <th>Type</th> 
+                        
+                        <th> Des</th> 
+                        <th>Thumbs</th> 
+                        <th>Cost</th> 
+                        <th>Date</th> 
+                        <th>Rate</th>
+                        <th>Status</th> 
+                        <th>Settings</th> 
                     </tr> 
                 </thead> 
                 <tbody> 
@@ -38,12 +39,17 @@ tinymce.init({
                         <?php foreach ($list_content as $root => $content): ?>
                             <tr> 
                                 <td><input type="checkbox" name="cate[]" value="<?php echo $content->id ?>"></td> 
+                                <td><?php echo $content->title ?></td>
                                 <td>
-                                    <?php foreach ($list_user as $user): ?>
-                                        <?php if ($content->userid == $user->id): ?>
-                                            <?php echo $user->username; ?>
+                                    <?php if($list_user):?>
+                                    <?php foreach ($list_user as $value): ?>
+                                        <?php if ($content->userid == $value->id): ?>
+                                            <?php echo $value->username; ?>
                                         <?php endif; ?>
                                     <?php endforeach; ?>
+                                    <?php else:?>
+                                        Admin
+                                    <?php endif;?>
                                 </td>
                                 <td>
                                     <?php foreach ($list_location as $location): ?>
@@ -59,10 +65,10 @@ tinymce.init({
                                         <?php endif; ?>
                                     <?php endforeach; ?>
                                 </td>
-                                <td><?php echo $content->title ?></td>
+                                
                                 <td><?php echo word_limiter($content->content, 80) ?></td>
-                                <td><img src="<?php echo base_url('upload/content/thumbs_' . $content->images); ?>" width="20%" alt="image_thumbs"></td>
-                                <td><?php echo base_url('upload/content/' . $content->cost); ?></td>
+                                <td><img src="<?php echo base_url('upload/content/thumbs_' . $content->images); ?>" width="30%" alt="image_thumbs"></td>
+                                <td><?php echo number_format($content->cost); ?></td>
                                 <td><?php echo $content->datecreated; ?></td>
                                 <td><?php echo $content->review; ?></td>
                                 <td>
@@ -159,6 +165,22 @@ tinymce.init({
                 <fieldset>
                     <label>Giá</label>
                     <input type="text" name="content_cost" />
+                </fieldset>
+                
+                <fieldset>
+                    <label>Review Tự đánh giá </label>
+                   <select name="content_review">
+                       <option value="1">1 *</option>
+                       <option value="2">2 *</option>
+                       <option value="3">3 *</option>
+                       <option value="4">4 *</option>
+                       <option value="5">5 *</option>
+                       <option value="6">6 *</option>
+                       <option value="7">7 *</option>
+                       <option value="8">8 *</option>
+                       <option value="9"selected="selected">9 *</option>
+                       <option value="10" >10 *</option> 
+                   </select>
                 </fieldset>
 
                 <div class="clear"></div>

@@ -52,6 +52,18 @@ class Location_model extends CI_Model {
             return null;
         }
     }
+    
+    public function _return_name($id){
+        $this->db->where('id', $id);
+        $query = $this->db->get('bm_location');
+        if ($query->num_rows() > 0) {
+            foreach($query->result() as $value){
+                return $value->location_name;
+            }
+        } else {
+            return null;
+        }
+    }
 
     public function _list_diff($id = null) {
         $this->db->where('id !=', $id);

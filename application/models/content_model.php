@@ -10,8 +10,8 @@ class Content_model extends CI_Model {
         parent::__construct();
         $this->load->database();
     }
-    
-     public function _list() {
+
+    public function _list() {
         $this->db->order_by('id', 'DESC');
         $query = $this->db->get('bm_content');
         if ($query->num_rows() > 0) {
@@ -20,10 +20,68 @@ class Content_model extends CI_Model {
             return null;
         }
     }
-    
-    
-    
-     public function _list_diff($id=null) {
+
+    public function _list_hot_view() {
+
+        $sql = "SELECT bm_content.id as contentid, 
+                    bm_content.localid as location_id, 
+                    bm_content.typeid, 
+                    bm_content.userid, 
+                    bm_content.title, 
+                    bm_content.content, 
+                    bm_content.gallery_id, 
+                    bm_content.images, 
+                    bm_content.cost, 
+                    bm_content.datecreated, 
+                    bm_content.`status`, 
+                    bm_content.review, 
+                    bm_location.active, 
+                    bm_content.view,
+                    bm_location.location_root, 
+                    bm_location.location_name, 
+                    bm_location.id
+            FROM bm_location INNER JOIN bm_content ON bm_location.id = bm_content.localid
+            WHERE bm_content.`status`= 1
+            ORDER BY bm_content.view DESC";
+
+        $query = $this->db->query($sql);
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return null;
+        }
+    }
+
+    public function _get_list_by_type($typeid) {
+        $sql = "SELECT bm_content.id as contentid, 
+                    bm_content.localid, 
+                    bm_content.typeid, 
+                    bm_content.userid, 
+                    bm_content.title, 
+                    bm_content.content, 
+                    bm_content.gallery_id, 
+                    bm_content.images, 
+                    bm_content.cost, 
+                    bm_content.datecreated, 
+                    bm_content.`status`, 
+                    bm_content.review, 
+                    bm_location.active, 
+                    bm_content.view,
+                    bm_location.location_root, 
+                    bm_location.location_name, 
+                    bm_location.id
+            FROM bm_location INNER JOIN bm_content ON bm_location.id = bm_content.localid
+            WHERE bm_content.`status`= 1 and bm_content.typeid=" . $typeid . " ORDER BY bm_content.view DESC";
+
+        $query = $this->db->query($sql);
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return null;
+        }
+    }
+
+    public function _list_diff($id = null) {
         $this->db->where('id !=', $id);
         $this->db->order_by('id', 'DESC');
         $query = $this->db->get('bm_content');
@@ -33,9 +91,11 @@ class Content_model extends CI_Model {
             return null;
         }
     }
-    
-    public function _getList_bylocation($localid){
-        $this->db->where('localid', $localid);
+
+    public function _getList_byuser($userid = null) {
+        if ($userid <> null) {
+            $this->db->where('userid', $userid);
+        }
         $this->db->order_by('id', 'DESC');
         $query = $this->db->get('bm_content');
         if ($query->num_rows() > 0) {
@@ -44,8 +104,38 @@ class Content_model extends CI_Model {
             return null;
         }
     }
-    
-    public function _getList_bycategory($cateid){
+
+    public function _getList_bylocation($localid = null) {
+
+        $sql = 'SELECT bm_content.id, 
+                        bm_content.localid, 
+                        bm_content.typeid, 
+                        bm_content.userid, 
+                        bm_content.title, 
+                        bm_content.content, 
+                        bm_content.gallery_id, 
+                        bm_content.images, 
+                        bm_content.cost, 
+                        bm_content.datecreated, 
+                        bm_content.`status`, 
+                        bm_content.`view`, 
+                        bm_content.review, 
+                        bm_location.active, 
+                        bm_location.location_root, 
+                        bm_location.location_name, 
+                        bm_location.id
+                FROM bm_location INNER JOIN bm_content ON bm_location.id = bm_content.localid
+                WHERE bm_content.localid = '.$localid;
+        
+        $query = $this->db->query($sql);
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return null;
+        }
+    }
+
+    public function _getList_bycategory($cateid) {
         $this->db->where('catecontentid', $cateid);
         $this->db->order_by('id', 'DESC');
         $query = $this->db->get('bm_content');
@@ -55,8 +145,7 @@ class Content_model extends CI_Model {
             return null;
         }
     }
-    
-    
+
     public function _details($id) {
         $this->db->where('id', $id);
         $query = $this->db->get('bm_content');
@@ -67,58 +156,104 @@ class Content_model extends CI_Model {
         }
     }
 
-    public function _add($localid,$catecontentid,$typeid,$userid,$title,$content,$gallery_id,$images,$cost,$status,$review) {
+    public function add_cate_content($cateid, $contentid) {
+        $data = array(
+            'cateid' => $cateid,
+            'contentid' => $contentid,
+        );
+        $this->db->trans_start();
+        $this->db->insert('bm_catecontent', $data);
+        $insert_id = $this->db->insert_id();
+        $this->db->trans_complete();
+        return $insert_id;
+    }
+
+    public function _add($localid, $typeid, $userid, $title, $content, $images, $cost, $status, $review) {
         $data = array(
             'localid' => $localid,
-            'catecontentid' => $catecontentid,
             'typeid' => $typeid,
             'userid' => $userid,
             'title' => $title,
             'content' => $content,
-            'gallery_id' => $gallery_id,
-             'images'=>$images,
+            'images' => $images,
             'cost' => $cost,
             'datecreated' => date("Y-m-d h:s:m"),
             'status' => $status,
             'review' => $review,
         );
+        $this->db->trans_start();
         $this->db->insert('bm_content', $data);
+        $insert_id = $this->db->insert_id();
+        $this->db->trans_complete();
+        return $insert_id;
+    }
+
+    public function _update($id, $localid, $catecontentid, $typeid, $userid, $title, $content, $images, $cost, $status, $review) {
+        if ($images) {
+            $data = array(
+                'localid' => $localid,
+                'typeid' => $typeid,
+                'userid' => $userid,
+                'title' => $title,
+                'content' => $content,
+                'cost' => $cost,
+                'images' => $images,
+                'datecreated' => date("Y-m-d h:s:m"),
+                'status' => $status,
+                'review' => $review,
+            );
+        } else {
+            $data = array(
+                'localid' => $localid,
+                'typeid' => $typeid,
+                'userid' => $userid,
+                'title' => $title,
+                'content' => $content,
+                'cost' => $cost,
+                'datecreated' => date("Y-m-d h:s:m"),
+                'status' => $status,
+                'review' => $review,
+            );
+        }
+        $this->db->where('id', $id);
+        $this->db->update('bm_content', $data);
         return 1;
     }
-    
-    public function _update($id,$localid,$catecontentid,$typeid,$userid,$title,$content,$gallery_id,$images,$cost,$status,$review) {
+
+    public function _update_status($id, $active) {
         $data = array(
-            'localid' => $localid,
-            'catecontentid' => $catecontentid,
-            'typeid' => $typeid,
-            'userid' => $userid,
-            'title' => $title,
-            'content' => $content,
-            'gallery_id' => $gallery_id,
-            'images'=>$images,
-            'cost' => $cost,
-            'datecreated' => date("Y-m-d h:s:m"),
-            'status' => $status,
-            'review' => $review,
+            'status' => $active,
         );
         $this->db->where('id', $id);
         $this->db->update('bm_content', $data);
         return 1;
     }
-    
-    public function _update_status($id,$active){
+
+    public function _update_view($id) {
+        $current = $this->_current_view($id);
         $data = array(
-            'status' => $active, 
+            'view' => $current + 5,
         );
         $this->db->where('id', $id);
         $this->db->update('bm_content', $data);
         return 1;
     }
-    
-    
-    function _del($id) {  
+
+    public function _current_view($id) {
+        $this->db->where('id', $id);
+        $query = $this->db->get('bm_content');
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $value) {
+                return $value->view;
+            }
+        } else {
+            return 0;
+        }
+    }
+
+    function _del($id) {
         $this->db->where('id', $id);
         $this->db->delete('bm_content');
     }
-    
+
 }

@@ -60,10 +60,16 @@
                     <?php $this->load->view('admin/type/edit'); ?>
                 <?php endif; ?>
             <?php endif; ?>
-  
+
             <?php if ($this->router->class == 'config'): ?>
                 <?php if ($this->router->fetch_method() == 'index'): ?>
                     <?php $this->load->view('admin/config/index'); ?>
+                <?php endif; ?>
+                <?php if ($this->router->fetch_method() == 'edit'): ?>
+                    <?php $this->load->view('admin/config/index'); ?>
+                <?php endif; ?>
+                <?php if ($this->router->fetch_method() == 'payment'): ?>
+                    <?php $this->load->view('admin/config/payment'); ?>
                 <?php endif; ?>
             <?php endif; ?>
 
@@ -72,6 +78,10 @@
                 <?php if ($this->router->fetch_method() == 'index'): ?>
                     <?php $this->load->view('admin/report/index'); ?>
                 <?php endif; ?>
+                <?php if ($this->router->fetch_method() == 'money'): ?>
+                    <?php $this->load->view('admin/report/index'); ?>
+                <?php endif; ?>
+
             <?php endif; ?>
 
             <?php if ($this->router->class == 'location'): ?>
@@ -82,7 +92,7 @@
                     <?php $this->load->view('admin/location/edit'); ?>
                 <?php endif; ?>
             <?php endif; ?>
-            
+
             <?php if ($this->router->class == 'content'): ?>
                 <?php if ($this->router->fetch_method() == 'index'): ?>
                     <?php $this->load->view('admin/content/index'); ?>
@@ -90,8 +100,15 @@
                 <?php if ($this->router->fetch_method() == 'edit'): ?>
                     <?php $this->load->view('admin/content/edit'); ?>
                 <?php endif; ?>
+                <?php if ($this->router->fetch_method() == 'gallery'): ?>
+                    <?php $this->load->view('admin/content/gallery'); ?>
+                <?php endif; ?>
             <?php endif; ?>
-
+            <?php if ($this->router->class == 'message'): ?>
+                <?php if ($this->router->fetch_method() == 'index'): ?>
+                    <?php $this->load->view('admin/user/send_message'); ?>
+                <?php endif; ?>
+            <?php endif; ?>
 
             <?php if ($this->router->class == 'user'): ?>
                 <?php if ($this->router->fetch_method() == 'index'): ?>
