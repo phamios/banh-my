@@ -55,10 +55,11 @@ class Content extends CI_Controller {
                 $title = $this->input->post('content_title', true);
                 $content = $this->input->post('content_content');
                 $cost = $this->input->post('content_cost', true);
+                $contact = $this->input->post('content_phone',true);
                 $review = $this->input->post('content_review', true);
                 $status = $this->input->post('content_active', true);
                 $images = $this->do_upload_image('./upload/content/', 'content_images');
-                $contentid = $this->content_model->_add($localid, $typeid, $userid, $title, $content, $images, $cost, $status, $review);
+                $contentid = $this->content_model->_add($localid, $typeid, $userid, $title, $content, $images, $cost, $status, $review,$contact);
                 $i = 0;
                 foreach ($cateid as $cate) {
                     $this->content_model->add_cate_content($cateid[$i], $contentid);

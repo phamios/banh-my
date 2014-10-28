@@ -20,18 +20,18 @@ tinymce.init({
                 <thead> 
                     <tr> 
                         <th></th> 
-                        <th>Title</th>
-                        <th>User</th> 
-                        <th>Location</th>  
-                        <th>Type</th> 
-                        
-                        <th> Des</th> 
-                        <th>Thumbs</th> 
-                        <th>Cost</th> 
-                        <th>Date</th> 
-                        <th>Rate</th>
-                        <th>Status</th> 
-                        <th>Settings</th> 
+                        <th>Tiêu đề </th>
+                        <th>Người đăng</th> 
+                        <th>Địa điểm</th>  
+                        <th>Loại </th>  
+                        <th> Giới thiệu </th> 
+                        <th>Ảnh </th> 
+                        <th>Giá</th> 
+                        <th>Ngày đăng</th> 
+                        <th>Điểm</th>
+                        <th>Liên hệ</th>
+                        <th>Tình trạng</th> 
+                        <th>Tùy chọn</th> 
                     </tr> 
                 </thead> 
                 <tbody> 
@@ -39,7 +39,7 @@ tinymce.init({
                         <?php foreach ($list_content as $root => $content): ?>
                             <tr> 
                                 <td><input type="checkbox" name="cate[]" value="<?php echo $content->id ?>"></td> 
-                                <td><?php echo $content->title ?></td>
+                                <td><?php echo word_limiter($content->title,5) ?></td>
                                 <td>
                                     <?php if($list_user):?>
                                     <?php foreach ($list_user as $value): ?>
@@ -66,11 +66,12 @@ tinymce.init({
                                     <?php endforeach; ?>
                                 </td>
                                 
-                                <td><?php echo word_limiter($content->content, 80) ?></td>
+                                <td><?php echo word_limiter(strip_tags($content->content),10) ?></td>
                                 <td><img src="<?php echo base_url('upload/content/thumbs_' . $content->images); ?>" width="30%" alt="image_thumbs"></td>
                                 <td><?php echo number_format($content->cost); ?></td>
                                 <td><?php echo $content->datecreated; ?></td>
                                 <td><?php echo $content->review; ?></td>
+                                <td><b><?php echo $content->content_phone; ?></b></td>
                                 <td>
                                     <?php if ($content->status == 1): ?>
                                         <a href="<?php echo site_url("admin/content/status/" . $content->id . '/0'); ?>">Đang hoạt động</a>
@@ -165,6 +166,10 @@ tinymce.init({
                 <fieldset>
                     <label>Giá</label>
                     <input type="text" name="content_cost" />
+                </fieldset>
+                <fieldset>
+                    <label>Số điện thoại liên hệ *</label>
+                    <input type="text" name="content_phone" />
                 </fieldset>
                 
                 <fieldset>

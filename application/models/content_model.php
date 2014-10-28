@@ -217,7 +217,7 @@ class Content_model extends CI_Model {
         return $insert_id;
     }
 
-    public function _add($localid, $typeid, $userid, $title, $content, $images, $cost, $status, $review) {
+    public function _add($localid, $typeid, $userid, $title, $content, $images, $cost, $status, $review,$contact) {
         $data = array(
             'localid' => $localid,
             'typeid' => $typeid,
@@ -229,6 +229,7 @@ class Content_model extends CI_Model {
             'datecreated' => date("Y-m-d h:s:m"),
             'status' => $status,
             'review' => $review,
+            'content_phone' =>$contact,
         );
         $this->db->trans_start();
         $this->db->insert('bm_content', $data);
@@ -237,7 +238,7 @@ class Content_model extends CI_Model {
         return $insert_id;
     }
 
-    public function _update($id, $localid, $catecontentid, $typeid, $userid, $title, $content, $images, $cost, $status, $review) {
+    public function _update($id, $localid, $typeid, $userid, $title, $content, $images, $cost, $status, $review,$contact) {
         if ($images) {
             $data = array(
                 'localid' => $localid,
@@ -250,6 +251,7 @@ class Content_model extends CI_Model {
                 'datecreated' => date("Y-m-d h:s:m"),
                 'status' => $status,
                 'review' => $review,
+                'content_phone' =>$contact,
             );
         } else {
             $data = array(
@@ -262,6 +264,7 @@ class Content_model extends CI_Model {
                 'datecreated' => date("Y-m-d h:s:m"),
                 'status' => $status,
                 'review' => $review,
+                'content_phone' =>$contact,
             );
         }
         $this->db->where('id', $id);
