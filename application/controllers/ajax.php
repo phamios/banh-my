@@ -24,6 +24,7 @@ class Ajax extends CI_Controller {
         $this->load->model('location_model');
         $this->load->model('type_model');
         $this->load->model('category_model');
+        $this->load->model('config_model');
         $this->load->model('search_model');
         $this->load->helper(array('form', 'url'));
         @session_start();
@@ -32,11 +33,14 @@ class Ajax extends CI_Controller {
     public function request($userid=null,$cost=null,$type=null,$contentid=null){
         if($this->user_model->check_balance($userid,$cost) == 0){
             echo "Bạn không đủ tiền mua rồi !";
-        } else {
-            
+        } else { 
+          
+            $this->user_model->_update_balance($userid,$cost,$type,$contentid);
+            $result = $this->content_model->_return_cost($contentid);
+            echo $result; 
         }
             
-        $this->user_model->_update_balance($userid,$cost,$type);
+        
     }
 
     public function list_sub_location($id) {
@@ -85,10 +89,58 @@ class Ajax extends CI_Controller {
         }
     }
     
-    
+        public function load_default(){
+            $session = $this->config_model->_details();
+
+            foreach($session as $value){
+                $site_name = $value->site_name;
+                $site_meta = $value->site_meta;
+                $site_description = $value->site_description;
+                $site_footer = $value->site_footer;
+                $site_url = $value->site_url;
+                $site_mode = $value->site_mode;
+                $site_logo = $value->site_logo;  
+            }
+                 $newdata = array(
+                    'site_name' =>$site_name,
+                    'site_meta' =>  $site_meta,
+                    'site_description' =>  $site_description,
+                    'site_footer' =>  $site_footer,
+                    'site_url' => $site_url ,
+                    'site_mode' => $site_mode,
+                    'site_logo' =>$site_logo,
+                );
+                $this->session->set_userdata($newdata);  
+        }
+
+    public function change_location($id=null){ 
+        $newdata = array(
+            'locationname' => $this->location_model->_return_name($id),
+            'locationid'=>$id,
+        );
+        $this->session->set_userdata($newdata);  
+        redirect('home');
+    }
 
     public function load_location() {
-        $location = $this->location_model->get_list_sub_location(2);
+        if($this->session->userdata('locationname')){
+            $last = $this->session->userdata('locationid');
+        } else {
+            $last_location = $this->location_model->_lastlist_root();
+            $last = null;
+            $last_name_location = null;
+            foreach($last_location as $local){
+                $last = $local->id;
+                $last_name_location = $local->location_name;
+            }
+             $newdata = array(
+                'locationname' => $last_name_location, 
+                'locationid'=>$last,
+            );
+            $this->session->set_userdata($newdata);    
+        }
+        
+        $location = $this->location_model->get_list_sub_location($last);
         $i = 0;
         echo '<div class="width25" style="font-size:15px;">
                     <ul>';
@@ -122,7 +174,7 @@ class Ajax extends CI_Controller {
                         <div class="jcarousel-wrapper">
                             <div class="jcarousel">
                                 <ul>';
-            $contents = $this->content_model->_get_list_by_type($type->id);
+            $contents = $this->content_model->_get_list_by_type($type->id,$this->session->userdata('locationid'));
             if ($contents) {
                 echo ' <ul >';
                 foreach ($contents as $value) {

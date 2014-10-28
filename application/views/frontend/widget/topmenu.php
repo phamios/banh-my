@@ -1,8 +1,7 @@
 <div class="container">
     <span class="pull-left toplink">
-        <a href="">gai goi,</a>
-        <a href="#"> so dien thoai gai goi cao cap ha noi,</a>
-        <a href="#"> gai goi sai gon</a></span>
+         
+    </span>
     <span class="pull-righ">
         <ul class="qltk"> 
             <?php if ($this->session->userdata('userid')): ?>

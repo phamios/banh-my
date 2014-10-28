@@ -3,7 +3,7 @@
     <div class="clear profile_O1">
         <div class="show-xu">
             <h4>Số tiền đang có</h4>
-            <p class="info-xu"><?php echo $current_balance?></p>
+            <p class="info-xu"><?php echo number_format($current_balance);?> đ</p>
         </div>
         <div class="napxunow">
             <h4 style="margin-top: 0;">Kiếm tiền với chương trình Aff</h4>

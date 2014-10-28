@@ -177,20 +177,31 @@ class User_model extends CI_Model {
         }
     }
 
-    public function _update_balance($userid = 0, $balacing = 0, $type = 1) {
+    public function _update_balance($userid = 0, $balancing = 0, $type = 1,$contentid= 0) {
         $current = $this->_current_balance($userid);
+        $total = 0; 
         if ($type == 1) {
-            $total = $balacing + $current;
+            $total = $balancing + $current;
         } else {
-            $total = $current - $balacing;
+            $total = $current - $balancing;
         }
         $data = array(
-            'balacing' => $total,
+            'balancing' => $total,
             'createdate' => date("Y-m-d h:s:m"),
         );
         $this->db->where('id', $userid);
         $this->db->update('bm_user', $data);
-        $this->_update_deposit_history($userid, $total, $type);
+        $this->_buy_item($userid,$contentid);
+        $this->_update_deposit_history($userid,  $balancing, $type);
+    }
+
+    public function _buy_item($userid,$contentid){
+         $data = array(
+            'userid' => $userid,  
+            'contentid' => $contentid,
+            'datecreate' => date("Y-m-d h:s:m"), 
+        ); 
+        $this->db->insert('bm_order', $data); 
     }
 
     public function _current_balance($userid) {
@@ -208,16 +219,15 @@ class User_model extends CI_Model {
     //Type = 1: Deposit 
     // Type = another: buy, withdraw
     public function _update_deposit_history($userid, $deposit, $type) {
+       
         $data = array(
-            'userid' => $user_id,
-            'createdate' => date("Y-m-d h:s:m"),
-            'balacing' => $this->_current_balance($userid),
+            'userid' => $userid, 
+            'balancing' => $this->_current_balance($userid),
             'deposit' => $deposit,
             'createdate' => date("Y-m-d h:s:m"),
             'changetype' => $type,
-        );
-        $this->db->where('id', $user_id);
-        $this->db->update('bm_balance_history', $data);
+        ); 
+        $this->db->insert('bm_balance_history', $data); 
     }
 
     public function _banned($userid, $active) {

@@ -12,9 +12,10 @@
         </div>
         <div class="box_home" style="min-height: 600px;">
             <div class="width45" style="">
-                <div style="padding: 15px;">
+                <div style="padding: 15px;"> 
                     <?php if ($list_gallery): ?>
                         <ul class="bxslider"> 
+
                             <?php foreach ($list_gallery as $imgs): ?>
                                 <li><img width="90%"src="<?php echo base_url('upload/content/' . $imgs->images_link); ?>" /></li> 
                             <?php endforeach; ?>
@@ -24,6 +25,8 @@
                                 <a data-slide-index="<?php echo $imgs->id; ?>" href=""><img width="20%" src="<?php echo base_url('upload/content/' . $imgs->images_link); ?>" /></a>
                             <?php endforeach; ?> 
                         </div>
+                    <?php else:?>
+                    <img width="90%" src="<?php echo site_url('upload/content/'.$content->images); ?>" alt="<?php echo $content->title; ?>"/>
                     <?php endif; ?>
                 </div>
             </div>
@@ -52,7 +55,7 @@
 
                 <div>
                     <div class="width50">
-
+                         
                         <p>Giá: <span class="chang"><?php echo number_format($content->cost); ?> đ</span></p>
                         <p >
                             Bạn chưa biết lấy số <br>
@@ -62,7 +65,7 @@
                     </div>
                     <div class="width50">
 
-                        <div class="r-details" id="result">
+                        <div class="r-details" id="result" class="result">
                             <?php if ($this->session->userdata('userid') == null) : ?>
                                 <a class="buttona" href="<?php echo site_url('user/login'); ?>" title="">Bạn phải là thành viên mới xem được</a>
                             <?php else: ?>
@@ -70,22 +73,27 @@
                             <?php endif; ?>
 
                         </div>
+                                <?php 
+                                $userid = $this->session->userdata('userid');
+                                $cost =  $content->cost;
+                                $type = 0;
+                                $contentid = $content->contentid;
 
+                                ?>
                         <script  type="text/javascript" language="javascript">
                             $('#getdata').click(function () {
 
                                 $.ajax({
-                                    url: '<?php echo site_url('ajax/request/' . $content->id); ?>',
+                                    url: '<?php echo site_url('ajax/request/'.$userid.'/'.$cost.'/'.$type.'/'.$contentid); ?>',
                                     type: 'GET',
-                                    dataType: 'json',
-                                    success: function (output_string) {
-                                        $('#result').html(output_string);
+                                    dataType: 'html',
+                                    success: function (output_string) { 
+                                        $('#info-girl').html(output_string); 
                                     } // End of success function of ajax form
-                                }); // End of ajax call	
-
-                            });
-
+                                }); // End of ajax call	 
+                            }); 
                         </script>
+                         
                     </div>
                     <div class="clear"></div>
                 </div>
@@ -96,7 +104,8 @@
                                     <a href="#rating" title="" class="red">Bấm vào đây để chia sẻ </a> hoặc đưa vào mục 
                                     <a class="red" href="#" title="">Yêu Thích</a>
                                 </div>-->
-                <div class="info-girl"> 
+                <div class="info-girl" id="info-girl"> 
+
                     <p><b style="color: red;">Người đăng:</b>
                         <?php if ($list_users): ?>
                             <?php foreach ($list_users as $user): ?>

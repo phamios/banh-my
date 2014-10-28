@@ -32,6 +32,18 @@ class Location_model extends CI_Model {
         }
     }
 
+    public function _lastlist_root() {
+        $this->db->limit(1);
+        $this->db->where('location_root', 0);
+        $this->db->order_by('id', 'ASC');
+        $query = $this->db->get('bm_location');
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return null;
+        }
+    }
+
     public function get_list_sub_location($rootid) {
         $this->db->where('location_root', $rootid);
         $this->db->order_by('id', 'DESC');

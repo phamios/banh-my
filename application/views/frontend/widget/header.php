@@ -1,10 +1,9 @@
 
-<title>duoc chua ong noi</title>
-<meta name="keywords" content="gai goi, gái gọi, gái bao, cave sinh viên, hàng đẹp cao cấp, choi gai o dau, tim gai quan he, tim gai qua dem">
-<meta name="description" content=" Tìm thông tin danh sách list số điện thoại gái gọi, gái bao, cave sinh viên cao cấp tại Hà Nội và gái gọi cao cấp Sài Gòn và Đà Nẵng, Nha Trang, Hải Phòng tại đây">
+<title><?php echo $this->session->userdata('site_name')?></title>
+<meta name="keywords" content="<?php echo $this->session->userdata('site_meta')?>">
+<meta name="description" content="<?php echo $this->session->userdata('site_description')?>">
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<meta name="author" content="forumit.vn">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+<meta name="author" content="<?php echo site_url();?>"> 
 
 
 <script src="<?php echo base_url('src'); ?>/jquery-1.11.1.min.js"></script>
@@ -16,3 +15,16 @@
 
 
 <?php $this->load->view('frontend/widget/js');?>
+
+ <script  type="text/javascript" language="javascript">
+   $( document ).ready(function() {
+         $.ajax({
+            url: '<?php echo site_url("ajax/load_default"); ?>',
+            type: 'GET',
+            dataType: 'html',
+            success: function (output_string) { 
+               // $('#info-girl').html(output_string); 
+            } // End of success function of ajax form
+        }); // End of ajax call	 
+    }); 
+</script>

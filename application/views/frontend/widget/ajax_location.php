@@ -12,7 +12,7 @@
 </script>
 
 <div class="lowerHeader_title">
-    <h3>KHU VỰC Hà Nội</h3>
+    <h3>KHU VỰC <?php echo strtoupper($this->session->userdata('locationname'));?></h3>
 </div>
 <div class="lowerHeader_content clear" id="lowerHeader_content">
     

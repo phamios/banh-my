@@ -21,6 +21,18 @@ class Content_model extends CI_Model {
         }
     }
     
+
+    public function _return_cost($contentid){
+        $this->db->where('id',$contentid);
+        $query = $this->db->get('bm_content');
+        if($query->num_rows() <> 0) {
+            foreach($query->result() as $value){ 
+                return $value->content_phone;
+            }
+        } else {
+            return null;
+        }
+    }
     
     
     public function getlist_category($contentid = null){
@@ -44,7 +56,8 @@ class Content_model extends CI_Model {
     }
 
     public function _get_details_info($content_id = null) {
-        $sql = "SELECT bm_content.id, 
+        $this->_update_view($content_id);
+        $sql = "SELECT bm_content.id as contentid, 
                     bm_content.localid as location_id, 
                     bm_content.typeid, 
                     bm_content.title, 
@@ -101,7 +114,8 @@ class Content_model extends CI_Model {
         }
     }
 
-    public function _get_list_by_type($typeid) {
+    public function _get_list_by_type($typeid,$locationid) {
+
         $sql = "SELECT bm_content.id as contentid, 
                     bm_content.localid, 
                     bm_content.typeid, 
@@ -120,7 +134,7 @@ class Content_model extends CI_Model {
                     bm_location.location_name, 
                     bm_location.id
             FROM bm_location INNER JOIN bm_content ON bm_location.id = bm_content.localid
-            WHERE bm_content.`status`= 1 and bm_content.typeid=" . $typeid . " ORDER BY bm_content.view DESC";
+            WHERE bm_content.`status`= 1 and bm_location.location_root = ".$locationid." and bm_content.typeid=" . $typeid . " ORDER BY bm_content.view DESC";
 
         $query = $this->db->query($sql);
         if ($query->num_rows() > 0) {
