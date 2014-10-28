@@ -11,7 +11,16 @@ class Search_model extends CI_Model {
         $this->load->database();
     }
     
-    
+    public function _list_top() {
+        $this->db->limit(10);
+        $this->db->order_by('id', 'DESC');
+        $query = $this->db->get('bm_search');
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return null;
+        }
+    }
 
     public function get_result($keyword = null, $cost = null, $cateid = null) {
         $sql = "SELECT bm_content.id, 
@@ -78,23 +87,29 @@ class Search_model extends CI_Model {
         $query = $this->db->get('bm_search');
         if ($query->num_rows() > 0) {
             foreach ($query->result() as $value) {
-                if ($value->keyword == $this->removesign($keyword)) {
-                    return false;
+                if (trim($this->removesign($value->keyword)) == trim($this->removesign($keyword)) && strlen($value->keyword) == strlen($keyword)) {
+                    return $value->id;
+                } else {
+                    return 0;
                 }
             }
+        } else {
+            return 0;
         }
-
-        return true;
+ 
     }
 
     public function _add($keyword) {
-        if ($this->_check_keywork($keyword)) {
+        $check = $this->_check_keywork($keyword);
+        if ( $check == 0) {
             $data = array(
-                'cate_name' => $catename,
+                'keyword' => $keyword,
                 'count' => 1,
             );
             $this->db->insert('bm_search', $data);
             return true;
+        } else {
+            $this->_update_count($check);
         }
         return false;
     }

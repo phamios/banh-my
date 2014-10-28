@@ -17,16 +17,15 @@
         data.addColumn('string', 'Topping');
         data.addColumn('number', 'Slices');
         data.addRows([
-          ['Mushrooms', 3],
-          ['Onions', 1],
-          ['Olives', 1],
-          ['Zucchini', 1],
-          ['Pepperoni', 2]
+          ['Thành viên chưa kích hoạt', <?php echo $total_user_unactive?>],
+          ['Thành viên kích hoạt', <?php echo $total_user_active?>],
+          ['Bài viết publish', <?php echo $total_content_active?>],
+          ['Bài viết chờ duyệt', <?php echo $total_content_unactive?>]
         ]);
 
         // Set chart options
-        var options = {'title':'How Much Pizza I Ate Last Night',
-                       'width':400,
+        var options = {'title':'Số lượng thành viên',
+                       'width':700,
                        'height':300};
 
         // Instantiate and draw our chart, passing in some options.
@@ -46,11 +45,11 @@
 
         <article class="stats_overview">
             <div class="overview_today">
-                <p class="overview_day">Today</p>
-                <p class="overview_count">1,876</p>
-                <p class="overview_type">Hits</p>
-                <p class="overview_count">2,103</p>
-                <p class="overview_type">Views</p>
+                <p class="overview_day">Tổng giao dịch</p>
+                <p class="overview_count"><?php echo $total_trans?></p>
+                <p class="overview_type">Tổng tin nhắn gửi</p>
+                <p class="overview_count"><?php echo $total_message?></p>
+                <p class="overview_type">tin</p>
             </div>
             <div class="overview_previous">
                 <p class="overview_day">Yesterday</p>

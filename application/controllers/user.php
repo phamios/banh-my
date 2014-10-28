@@ -15,7 +15,7 @@ class User extends CI_Controller {
         $this->load->helper('cookie');
         $this->load->model('location_model');
         $this->load->model('content_model');
-        $this->load->model('category_model');
+        $this->load->model('report_model');
         $this->load->model('search_model');
         $this->load->helper("text");
         $this->load->helper("slug");
@@ -73,6 +73,19 @@ class User extends CI_Controller {
         }
     }
 
+    public function report(){
+        if ($this->session->userdata('userid')) {
+            $data['services'] = $this->category_model->_list();
+            $data['userdetails'] = $this->user_model->details_user($this->session->userdata('userid'));
+            $data['current_balance'] = $this->user_model->_current_balance($this->session->userdata('userid'));
+            $data['location'] = $this->location_model->_list_root();
+            $data['list_content'] = $this->content_model->_list();
+            $data['list_order'] = $this->report_model->_list_order($this->session->userdata('userid'));
+            $this->load->view('frontend/index', $data);
+        } else {
+            redirect('user/login');
+        }
+    }
     public function read_mess($id) {
         if ($this->session->userdata('userid')) {
             $data['services'] = $this->category_model->_list();

@@ -17,7 +17,7 @@
             <?php endif; ?>
 
             <li>
-                <a href="#" class="huong-dan-su-dung"> Hướng dẫn sử dụng</a>
+                <a href="<?php echo site_url('help');?>" class="huong-dan-su-dung"> Hướng dẫn sử dụng</a>
             </li>
         </ul>
     </span>

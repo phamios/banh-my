@@ -31,6 +31,8 @@
 <h3>Báo cáo</h3>
 <ul class="toggle">
     <li class="icn_folder"><a href="<?php echo site_url('admin/report/money');?>">Thống kê sản lượng</a></li> 
+    <li class="icn_folder"><a href="<?php echo site_url('admin/report/favor');?>">Báo cáo sản phẩm yêu thích</a></li> 
+    <li class="icn_folder"><a href="<?php echo site_url('admin/report/bad');?>">Báo cáo sản phẩm vi phạm</a></li> 
 </ul>
 <h3>Admin</h3>
 <ul class="toggle">

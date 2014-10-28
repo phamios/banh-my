@@ -11,8 +11,7 @@ class User_model extends CI_Model {
         $this->load->database();
     }
 
-    public function _list_active_user() {
-        $this->db->where('active', 1);
+    public function _list_active_user() { 
         $this->db->order_by('id', 'DESC');
         $query = $this->db->get('bm_user');
         if ($query->num_rows() > 0) {
@@ -252,6 +251,28 @@ class User_model extends CI_Model {
     function _del($id) {
         $this->db->where('id', $id);
         $this->db->delete('bm_user');
+    }
+    
+    function total(){
+        return $this->db->count_all('bm_user');
+    }
+    function total_active(){
+        $this->db->where('active',1);
+        return $this->db->count_all('bm_user');
+    }
+    
+    function total_unactive(){
+        $this->db->where('active',0);
+        return $this->db->count_all('bm_user');
+    }
+    
+    function total_trans(){
+        return $this->db->count_all('bm_balance_history');
+        
+    }
+    
+    function total_message(){
+        return $this->db->count_all('bm_message');
     }
 
 }

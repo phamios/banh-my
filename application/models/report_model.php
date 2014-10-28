@@ -10,6 +10,16 @@ class Report_model extends CI_Model {
         parent::__construct();
         $this->load->database();
     }
+    
+    public function _list_order($userid){
+        $this->db->order_by('id', 'DESC');
+        $query = $this->db->get('bm_order');
+         if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return null;
+        }
+    }
 
     public function _list() {
         $this->db->order_by('id', 'DESC');

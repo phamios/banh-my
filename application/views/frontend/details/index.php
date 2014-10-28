@@ -25,12 +25,19 @@
                                 <a data-slide-index="<?php echo $imgs->id; ?>" href=""><img width="20%" src="<?php echo base_url('upload/content/' . $imgs->images_link); ?>" /></a>
                             <?php endforeach; ?> 
                         </div>
-                    <?php else:?>
-                    <img width="90%" src="<?php echo site_url('upload/content/'.$content->images); ?>" alt="<?php echo $content->title; ?>"/>
+                    <?php else: ?>
+                        <img width="90%" src="<?php echo site_url('upload/content/' . $content->images); ?>" alt="<?php echo $content->title; ?>"/>
                     <?php endif; ?>
                 </div>
             </div>
             <div class="width55">
+                <div style="padding:20px;">
+                    <?php if ($this->session->userdata('userid')): ?>
+                        <a href="<?php echo site_url('ajax/favor/' . $this->session->userdata('userid') . '/' . $content->contentid); ?>"><img width="30%" src="<?php echo base_url('src/images/favor.png'); ?>" alt=""  /></a>
+                        <a href="<?php echo site_url('ajax/star/' . $content->contentid); ?>"><img width="30%" src="<?php echo base_url('src/images/star.png'); ?>" alt="" /> </a>
+                        <a href="<?php echo site_url('ajax/report/' . $this->session->userdata('userid') . '/' . $content->contentid); ?>"><img width="30%" src="<?php echo base_url('src/images/err.png'); ?>" alt="" />  </a>
+                    <?php endif; ?>
+                </div>
                 <div>
                     <strong><?php echo $content->title; ?></strong>
                 </div>
@@ -55,13 +62,14 @@
 
                 <div>
                     <div class="width50">
-                         
+
                         <p>Giá: <span class="chang"><?php echo number_format($content->cost); ?> đ</span></p>
-                        <p >
+<!--                        <p >
                             Bạn chưa biết lấy số <br>
                             <strong>Bấm</strong> 
                             <a href="#" title="" style="color: blue;">vào để xem hướng dẫn</a>
-                        </p>
+                        </p>-->
+
                     </div>
                     <div class="width50">
 
@@ -73,27 +81,27 @@
                             <?php endif; ?>
 
                         </div>
-                                <?php 
-                                $userid = $this->session->userdata('userid');
-                                $cost =  $content->cost;
-                                $type = 0;
-                                $contentid = $content->contentid;
 
-                                ?>
+                        <?php
+                        $userid = $this->session->userdata('userid');
+                        $cost = $content->cost;
+                        $type = 0;
+                        $contentid = $content->contentid;
+                        ?>
                         <script  type="text/javascript" language="javascript">
                             $('#getdata').click(function () {
 
                                 $.ajax({
-                                    url: '<?php echo site_url('ajax/request/'.$userid.'/'.$cost.'/'.$type.'/'.$contentid); ?>',
+                                    url: '<?php echo site_url('ajax/request/' . $userid . '/' . $cost . '/' . $type . '/' . $contentid); ?>',
                                     type: 'GET',
                                     dataType: 'html',
-                                    success: function (output_string) { 
-                                        $('#info-girl').html(output_string); 
+                                    success: function (output_string) {
+                                        $('#info-girl').html(output_string);
                                     } // End of success function of ajax form
                                 }); // End of ajax call	 
-                            }); 
+                            });
                         </script>
-                         
+
                     </div>
                     <div class="clear"></div>
                 </div>

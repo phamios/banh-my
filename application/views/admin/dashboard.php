@@ -78,6 +78,12 @@
                 <?php if ($this->router->fetch_method() == 'index'): ?>
                     <?php $this->load->view('admin/report/index'); ?>
                 <?php endif; ?>
+                <?php if ($this->router->fetch_method() == 'bad'): ?>
+                    <?php $this->load->view('admin/report/bad'); ?>
+                <?php endif; ?>
+                <?php if ($this->router->fetch_method() == 'favor'): ?>
+                    <?php $this->load->view('admin/report/favor'); ?>
+                <?php endif; ?>
                 <?php if ($this->router->fetch_method() == 'money'): ?>
                     <?php $this->load->view('admin/report/index'); ?>
                 <?php endif; ?>

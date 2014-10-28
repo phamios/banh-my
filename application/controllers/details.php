@@ -29,6 +29,11 @@ class Details extends CI_Controller {
         $data['list_gallery'] = $this->gallery_model->_list_by_content($this->product);
         $data['list_choose_cate'] = $this->content_model->getlist_category($this->product);
         $data['content_details'] = $this->content_model->_get_details_info($this->product);
+  
+        $newdata = array(
+            'title_content' => $this->content_model->_return_title($this->product), 
+        );
+        $this->session->set_userdata($newdata);
         $this->load->view('frontend/index', $data);
     }
 
