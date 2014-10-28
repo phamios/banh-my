@@ -29,7 +29,7 @@
                             <?php foreach ($list_content_location as $search): ?>
                             <li class="width19">
                                 <div class="thumb">
-                                    <a href="#" title="#">
+                                    <a href="<?php echo site_url("details/".create_slug($search->title)."-".$search->contentid.".html")?>" title="#">
                                         <img src="<?php echo base_url('upload/content/thumbs_' . $search->images)?>" alt="#">
                                     </a>
                                 </div>

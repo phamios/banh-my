@@ -26,7 +26,7 @@ class Gallery_model extends CI_Model {
 
     public function _list_by_content($contentid) {
         $this->db->where('contentid', $contentid);
-        $this->db->order_by('id', 'DESC');
+        $this->db->order_by('id', 'asc');
         $query = $this->db->get('bm_gallery');
         if ($query->num_rows() > 0) {
             return $query->result();

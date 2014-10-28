@@ -13,20 +13,22 @@ class Details extends CI_Controller {
         $this->load->library('session');
         $this->load->helper('url');
         $this->load->library('upload');
-        $this->load->library('pagination');
-        $this->load->library('parser');
-        $this->load->helper('cookie');
-         $this->load->helper("text");  
-         $this->load->helper("slug");
+        $this->load->library('pagination');  
         //$this->load->library('sonclass');
         $this->load->helper(array('form', 'url'));
-         $this->product = (int) end(explode("-", $this->uri->segment(2)));
+        $this->load->model('gallery_model');
+        $this->product = (int) end(explode("-", $this->uri->segment(2)));
         @session_start();
     }
 
-    public function _remap() { 
+    public function _remap() {
         $data['services'] = $this->category_model->_list();
         $data['location'] = $this->location_model->_list_root();
+        $data['cateogries'] =$this->category_model->_list();
+        $data['list_users'] = $this->user_model->_list();
+        $data['list_gallery'] = $this->gallery_model->_list_by_content($this->product);
+        $data['list_choose_cate'] = $this->content_model->getlist_category($this->product);
+        $data['content_details'] = $this->content_model->_get_details_info($this->product);
         $this->load->view('frontend/index', $data);
     }
 

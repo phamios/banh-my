@@ -23,10 +23,34 @@
                     <?php if ($this->router->fetch_method() == 'search'): ?>
                         <?php $this->load->view('frontend/search/index'); ?>
                     <?php endif; ?>
-                <?php if ($this->router->fetch_method() == 'location'): ?>
+                    <?php if ($this->router->fetch_method() == 'location'): ?>
                         <?php $this->load->view('frontend/location/index'); ?>
                     <?php endif; ?>
                 <?php endif; ?> 
+
+                <?php if ($this->router->class == 'details'): ?> 
+                    <?php $this->load->view('frontend/details/index'); ?> 
+                <?php endif; ?>
+                <?php if ($this->router->class == 'user'): ?> 
+                    <?php if ($this->router->fetch_method() == 'index'): ?>
+                        <?php $this->load->view('frontend/user/index'); ?>
+                    <?php endif; ?>
+                    <?php if ($this->router->fetch_method() == 'changepass'): ?>
+                        <?php $this->load->view('frontend/user/changepass'); ?>
+                    <?php endif; ?>
+                    <?php if ($this->router->fetch_method() == 'message'): ?>
+                        <?php $this->load->view('frontend/user/message'); ?>
+                    <?php endif; ?>
+                    <?php if ($this->router->fetch_method() == 'deposit'): ?>
+                        <?php $this->load->view('frontend/user/deposit'); ?>
+                    <?php endif; ?>
+                    <?php if ($this->router->fetch_method() == 'login'): ?>
+                        <?php $this->load->view('frontend/login/index'); ?>
+                    <?php endif; ?>
+                    <?php if ($this->router->fetch_method() == 'register'): ?>
+                        <?php $this->load->view('frontend/register/index'); ?>
+                    <?php endif; ?>
+                <?php endif; ?>
                 <div class="clear"></div>
             </div>
             <div class="clear"></div>

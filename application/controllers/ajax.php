@@ -28,6 +28,16 @@ class Ajax extends CI_Controller {
         $this->load->helper(array('form', 'url'));
         @session_start();
     }
+    
+    public function request($userid=null,$cost=null,$type=null,$contentid=null){
+        if($this->user_model->check_balance($userid,$cost) == 0){
+            echo "Bạn không đủ tiền mua rồi !";
+        } else {
+            
+        }
+            
+        $this->user_model->_update_balance($userid,$cost,$type);
+    }
 
     public function list_sub_location($id) {
         if ($id == 0) {

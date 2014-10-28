@@ -20,6 +20,55 @@ class Content_model extends CI_Model {
             return null;
         }
     }
+    
+    
+    
+    public function getlist_category($contentid = null){
+        $sql = "SELECT bm_category.cate_name, 
+                    bm_category.cate_root, 
+                    bm_category.active, 
+                    bm_category.cate_image, 
+                    bm_catecontent.cateid, 
+                    bm_catecontent.contentid, 
+                    bm_content.id
+            FROM bm_content INNER JOIN bm_catecontent ON bm_content.id = bm_catecontent.contentid
+                     INNER JOIN bm_category ON bm_category.id = bm_catecontent.cateid
+
+            WHERE bm_content.id = ".$contentid;
+        $query = $this->db->query($sql);
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return null;
+        }
+    }
+
+    public function _get_details_info($content_id = null) {
+        $sql = "SELECT bm_content.id, 
+                    bm_content.localid as location_id, 
+                    bm_content.typeid, 
+                    bm_content.title, 
+                    bm_content.userid, 
+                    bm_content.content, 
+                    bm_content.cost, 
+                    bm_content.images, 
+                    bm_content.datecreated, 
+                    bm_content.`status`, 
+                    bm_content.review, 
+                    bm_content.`view`, 
+                    bm_location.active, 
+                    bm_location.location_root, 
+                    bm_location.location_name, 
+                    bm_location.id
+            FROM bm_location INNER JOIN bm_content ON bm_location.id = bm_content.localid
+            WHERE bm_content.id = ".$content_id;
+        $query = $this->db->query($sql);
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return null;
+        }
+    }
 
     public function _list_hot_view() {
 
@@ -107,7 +156,7 @@ class Content_model extends CI_Model {
 
     public function _getList_bylocation($localid = null) {
 
-        $sql = 'SELECT bm_content.id, 
+        $sql = 'SELECT bm_content.id as contentid, 
                         bm_content.localid, 
                         bm_content.typeid, 
                         bm_content.userid, 
@@ -125,8 +174,8 @@ class Content_model extends CI_Model {
                         bm_location.location_name, 
                         bm_location.id
                 FROM bm_location INNER JOIN bm_content ON bm_location.id = bm_content.localid
-                WHERE bm_content.localid = '.$localid;
-        
+                WHERE bm_content.localid = ' . $localid;
+
         $query = $this->db->query($sql);
         if ($query->num_rows() > 0) {
             return $query->result();
