@@ -264,6 +264,28 @@ class Content_model extends CI_Model {
         }
     }
     
+    public function _list_favor_user($userid){
+        $query = "SELECT bm_user.id, 
+                        bm_favor.userid, 
+                        bm_favor.contentid, 
+                        bm_favor.createdate, 
+                        bm_content.id, 
+                        bm_content.cost,
+                        bm_content.userid, 
+                        bm_content.title, 
+                        bm_content.content
+                FROM bm_user INNER JOIN bm_favor ON bm_user.id = bm_favor.userid
+                         INNER JOIN bm_content ON bm_content.id = bm_favor.contentid
+                         WHERE bm_user.id = ".$userid;
+        
+        $query = $this->db->query($query);
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return null;
+        }
+    }
+    
     public function _list_favor(){
         $this->db->order_by('id','DESC');
         $query = $this->db->get('bm_favor');

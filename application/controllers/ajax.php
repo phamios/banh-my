@@ -197,7 +197,7 @@ class Ajax extends CI_Controller {
 
             echo '<div class="box_home clear">
                     <div class="box_home_title box_home_title_0' . $i . '">
-                        <h3><a href="' . site_url("type/" . create_slug($type->type_name) . "-" . $type->id . ".html") . '">' . $type->type_name . '</a><a href="#" class="pull-righ view-all">Xem toàn bộ</a></h3>
+                        <h3><a href="' . site_url("type/" . create_slug($type->type_name) . "-" . $type->id . ".html") . '">' . $type->type_name . '</a><a href="' . site_url("type/" . create_slug($type->type_name) . "-" . $type->id . ".html") . '" class="pull-righ view-all">Xem toàn bộ</a></h3>
                     </div>
                     <div class="box_home_content "> 
                         <div class="jcarousel-wrapper">

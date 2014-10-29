@@ -72,6 +72,20 @@ class User extends CI_Controller {
             redirect('user/login');
         }
     }
+    
+    public function favor() {
+        if ($this->session->userdata('userid')) {
+            $data['services'] = $this->category_model->_list();
+            $data['userdetails'] = $this->user_model->details_user($this->session->userdata('userid'));
+            $data['current_balance'] = $this->user_model->_current_balance($this->session->userdata('userid'));
+            $data['location'] = $this->location_model->_list_root();
+            
+            $data['list_favor'] = $this->content_model->_list_favor_user($this->session->userdata('userid'));
+            $this->load->view('frontend/index', $data);
+        } else {
+            redirect('user/login');
+        }
+    }
 
     public function report(){
         if ($this->session->userdata('userid')) {

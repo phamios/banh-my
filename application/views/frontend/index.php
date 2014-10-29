@@ -1,9 +1,8 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<?php 
-
-if($this->session->userdata('site_mode') == 0){
-   echo " Hệ thống tạm dừng hoạt động để bảo trì, xin bạn vui lòng quay lại sau ít phút nữa !";
-   die;
+<?php
+if ($this->session->userdata('site_mode') == 0) {
+    echo " Hệ thống tạm dừng hoạt động để bảo trì, xin bạn vui lòng quay lại sau ít phút nữa !";
+    die;
 }
 ?>
 <!DOCTYPE html>
@@ -38,6 +37,9 @@ if($this->session->userdata('site_mode') == 0){
                 <?php if ($this->router->class == 'details'): ?> 
                     <?php $this->load->view('frontend/details/index'); ?> 
                 <?php endif; ?>
+                <?php if ($this->router->class == 'type'): ?> 
+                    <?php $this->load->view('frontend/type/index'); ?> 
+                <?php endif; ?>
                 <?php if ($this->router->class == 'help'): ?> 
                     <?php $this->load->view('frontend/help/index'); ?> 
                 <?php endif; ?>
@@ -56,6 +58,9 @@ if($this->session->userdata('site_mode') == 0){
                     <?php endif; ?>
                     <?php if ($this->router->fetch_method() == 'report'): ?>
                         <?php $this->load->view('frontend/user/report'); ?>
+                    <?php endif; ?>
+                <?php if ($this->router->fetch_method() == 'favor'): ?>
+                        <?php $this->load->view('frontend/user/favor'); ?>
                     <?php endif; ?>
                     <?php if ($this->router->fetch_method() == 'login'): ?>
                         <?php $this->load->view('frontend/login/index'); ?>
@@ -92,24 +97,24 @@ if($this->session->userdata('site_mode') == 0){
                                     <div class="clear"></div>
                                 </div>-->
                 <div class="clear"></div>
-                                <div class="width80 clear">
-                                    <div>
-                                        <h3>Được tìm kiếm nhiều</h3>
-                                    </div>
-                                    <div>
-                
-                                        <ul class="width20">
-                                            <?php  $total_search = $this->session->userdata('top_serch');?>
-                                            <?php foreach($total_search as $search):?>
-                                            <li><a href="<?php echo site_url()?>"><?php echo $search->keyword?></a></li>
-                                            <?php endforeach;?>
-                                            
-                                        </ul>
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>
+                <div class="width80 clear">
+                    <div>
+                        <h3>Được tìm kiếm nhiều</h3>
+                    </div>
+                    <div>
+
+                        <ul class="width20">
+                            <?php $total_search = $this->session->userdata('top_serch'); ?>
+                            <?php foreach ($total_search as $search): ?>
+                                <li><a href="<?php echo site_url() ?>"><?php echo $search->keyword ?></a></li>
+                            <?php endforeach; ?>
+
+                        </ul>
+                    </div>
+                    <div class="clear"></div>
+                </div>
                 <div style="margin-top: 8px; padding-top:40px; color:white;" class="clear">
-                    &copy <?php echo $this->session->userdata('site_footer')?>
+                    &copy <?php echo $this->session->userdata('site_footer') ?>
                     <br/><br/><br/>
                     <img src="<?php echo base_url('upload/content/' . $this->session->userdata('site_logo')); ?>" height="78" width="256">
                 </div>

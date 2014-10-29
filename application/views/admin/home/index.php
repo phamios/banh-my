@@ -1,4 +1,4 @@
-
+<!--
 
 <h4 class="alert_info">Welcome to the free MediaLoot admin panel template, this could be an informative message.</h4>
 
@@ -27,7 +27,7 @@
         </article>
         <div class="clear"></div>
     </div>
-</article><!-- end of stats article -->
+</article> end of stats article 
 
 <article class="module width_3_quarter">
     <header><h3 class="tabs_involved">Content Manager</h3>
@@ -87,7 +87,7 @@
                     </tr>  
                 </tbody> 
             </table>
-        </div><!-- end of #tab1 -->
+        </div> end of #tab1 
 
         <div id="tab2" class="tab_content">
             <table class="tablesorter" cellspacing="0"> 
@@ -139,11 +139,11 @@
                 </tbody> 
             </table>
 
-        </div><!-- end of #tab2 -->
+        </div> end of #tab2 
 
-    </div><!-- end of .tab_container -->
+    </div> end of .tab_container 
 
-</article><!-- end of content manager article -->
+</article> end of content manager article 
 
 <article class="module width_quarter">
     <header><h3>Messages</h3></header>
@@ -171,7 +171,7 @@
             <input type="submit" class="btn_post_message" value=""/>
         </form>
     </footer>
-</article><!-- end of messages article -->
+</article> end of messages article 
 
 <div class="clear"></div>
 
@@ -186,7 +186,7 @@
             <label>Content</label>
             <textarea rows="12"></textarea>
         </fieldset>
-        <fieldset style="width:48%; float:left; margin-right: 3%;"> <!-- to make two field float next to one another, adjust values accordingly -->
+        <fieldset style="width:48%; float:left; margin-right: 3%;">  to make two field float next to one another, adjust values accordingly 
             <label>Category</label>
             <select style="width:92%;">
                 <option>Articles</option>
@@ -194,7 +194,7 @@
                 <option>Freebies</option>
             </select>
         </fieldset>
-        <fieldset style="width:48%; float:left;"> <!-- to make two field float next to one another, adjust values accordingly -->
+        <fieldset style="width:48%; float:left;">  to make two field float next to one another, adjust values accordingly 
             <label>Tags</label>
             <input type="text" style="width:92%;">
         </fieldset><div class="clear"></div>
@@ -209,7 +209,7 @@
             <input type="submit" value="Reset">
         </div>
     </footer>
-</article><!-- end of post new article -->
+</article> end of post new article 
 
 <h4 class="alert_warning">A Warning Alert</h4>
 
@@ -235,5 +235,5 @@
             <li>Cras mattis consectetur purus sit amet fermentum.</li>
         </ul>
     </div>
-</article><!-- end of styles article -->
-<div class="spacer"></div>
+</article> end of styles article 
+<div class="spacer"></div>-->

@@ -22,19 +22,21 @@ class Type extends CI_Controller {
     }
 
     public function _remap() {
+        $current_location = $this->session->userdata('locationid');
+        $data['location_id'] = $current_location;
         $data['services'] = $this->category_model->_list();
         $data['location'] = $this->location_model->_list_root();
         $data['cateogries'] =$this->category_model->_list();
         $data['list_users'] = $this->user_model->_list();
-        $data['list_gallery'] = $this->gallery_model->_list_by_content($this->product);
-        $data['list_choose_cate'] = $this->content_model->getlist_category($this->product);
-        $current_location = $this->session->userdata('locationid');
-        $data['list_content_type'] = $this->content_model->_get_list_by_type($this->product,$current_location);
-  
+         $data['location_name_current'] = $this->location_model->_return_name($current_location);
+        $data['list_content_location'] = $this->content_model->_getList_bylocation($current_location); 
+        
+        $data['list_content_type'] = $this->content_model->_get_list_by_type($this->typeid,$current_location);
+        
 //        $newdata = array(
 //            'title_content' => $this->content_model->_return_title($this->product), 
 //        );
-        $this->session->set_userdata($newdata);
+       // $this->session->set_userdata($newdata);
         $this->load->view('frontend/index', $data);
     }
 
