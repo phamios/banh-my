@@ -124,7 +124,7 @@ class Ajax extends CI_Controller {
         if ($userid <> null) {
             $this->content_model->_add_favor($userid, $contentid);
             $title = $this->content_model->_return_title($contentid);
-            $url = site_url("details/" . create_slug($title) . "-" . $contentid . ".html"); 
+            $url = site_url("details/" . create_slug($title) . "-" . $contentid . ".html");
             redirect($url);
         } else {
             redirect('user/login');
@@ -134,18 +134,18 @@ class Ajax extends CI_Controller {
     public function star($id) {
         $this->content_model->_update_review($id);
         $title = $this->content_model->_return_title($id);
-        $url = site_url("details/" . create_slug($title) . "-" . $id . ".html"); 
+        $url = site_url("details/" . create_slug($title) . "-" . $id . ".html");
         redirect($url);
     }
 
     public function report($userid, $contentid, $content = null) {
         if ($userid <> null) {
-            if($content == null){
+            if ($content == null) {
                 $content = "Too bad";
-            } 
+            }
             $this->content_model->_add_bad($userid, $contentid, $content);
             $title = $this->content_model->_return_title($contentid);
-            $url = site_url("details/" . create_slug($title) . "-" . $contentid . ".html"); 
+            $url = site_url("details/" . create_slug($title) . "-" . $contentid . ".html");
             redirect($url);
         } else {
             redirect('user/login');
@@ -197,7 +197,7 @@ class Ajax extends CI_Controller {
 
             echo '<div class="box_home clear">
                     <div class="box_home_title box_home_title_0' . $i . '">
-                        <h3><a href="#">' . $type->type_name . '</a><a href="#" class="pull-righ view-all">Xem toàn bộ</a></h3>
+                        <h3><a href="' . site_url("type/" . create_slug($type->type_name) . "-" . $type->id . ".html") . '">' . $type->type_name . '</a><a href="#" class="pull-righ view-all">Xem toàn bộ</a></h3>
                     </div>
                     <div class="box_home_content "> 
                         <div class="jcarousel-wrapper">

@@ -22,28 +22,28 @@
     </div>
     <div class="box_home_content "> 
         <div class="jcarousel-wrapper">
-            <?php if ($list_content_location): ?>
+            <?php if ($list_content_type): ?>
                 
                     <div class="jcarousel">
                         <ul>
-                            <?php foreach ($list_content_location as $search): ?>
+                            <?php foreach ($list_content_type as $value): ?>
                             <li class="width19">
                                 <div class="thumb">
-                                    <a href="<?php echo site_url("details/".create_slug($search->title)."-".$search->contentid.".html")?>" title="#">
-                                        <img src="<?php echo base_url('upload/content/thumbs_' . $search->images)?>" alt="#">
+                                    <a href="<?php echo site_url("details/".create_slug($value->title)."-".$value->contentid.".html")?>" title="#">
+                                        <img src="<?php echo base_url('upload/content/thumbs_' . $value->images)?>" alt="#">
                                     </a>
                                 </div>
                                 <div class="name">
-                                    <a href="<?php echo site_url("details/".create_slug($search->title)."-".$search->contentid.".html")?>" title="#"> <?php echo $search->title?></a>
+                                    <a href="<?php echo site_url("details/".create_slug($value->title)."-".$value->contentid.".html")?>" title="#"> <?php echo $value->title?></a>
                                 </div>
                                 <div class="street_girl">
-                                    KV:<a href="<?php echo site_url('home/location/'.$search->localid)?>" title="#"><?php echo $search->location_name?></a>
+                                    KV:<a href="<?php echo site_url('home/location/'.$value->localid)?>" title="#"><?php echo $value->location_name?></a>
                                 </div>
                                 <div class="rating_box">
-                                    <div class="bacic" data-average="8" data-id="<?php echo $search->review?>"></div>
+                                    <div class="bacic" data-average="8" data-id="<?php echo $value->review?>"></div>
                                 </div>
                                 <div class="price">
-                                    Giá: <span><?php echo number_format($search->cost)?> đ</span>
+                                    Giá: <span><?php echo number_format($value->cost)?> đ</span>
                                 </div>
                             </li>
                              <?php endforeach; ?>
