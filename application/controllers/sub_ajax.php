@@ -140,6 +140,9 @@ class Sub_ajax extends CI_Controller {
             $site_url = $value->site_url;
             $site_mode = $value->site_mode;
             $site_logo = $value->site_logo;
+            $site_template = $value->template;
+            $analytic = $value->analytic;
+            
         }
         $newdata = array(
             'site_name' => $site_name,
@@ -149,6 +152,8 @@ class Sub_ajax extends CI_Controller {
             'site_url' => $site_url,
             'site_mode' => $site_mode,
             'site_logo' => $site_logo,
+            'site_template'=>$site_template,
+            'site_analytic'=>$analytic
         );
         $this->session->set_userdata($newdata);
     }

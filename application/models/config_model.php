@@ -20,8 +20,8 @@ class Config_model extends CI_Model {
             return null;
         }
     }
-    
-    public function _list_payment(){ 
+
+    public function _list_payment() {
         $query = $this->db->get('bm_payment');
         if ($query->num_rows() > 0) {
             return $query->result();
@@ -29,18 +29,18 @@ class Config_model extends CI_Model {
             return null;
         }
     }
-    
-    public function _add_payment($name,$email,$logo,$status) {
+
+    public function _add_payment($name, $email, $logo, $status) {
         $data = array(
             'payment_name' => $name,
             'payment_enable' => $status,
             'payment_logo' => $logo,
             'payment_email' => $email,
         );
-        $this->db->insert('bm_payment', $data); 
+        $this->db->insert('bm_payment', $data);
     }
 
-    public function _update($site_name, $site_meta, $site_description, $site_footer, $site_url, $site_mode, $site_logo) {
+    public function _update($site_name, $site_meta, $site_description, $site_footer, $site_url, $site_mode, $site_logo, $analytic,$template) {
         if ($site_logo) {
             $data = array(
                 'site_name' => $site_name,
@@ -50,6 +50,8 @@ class Config_model extends CI_Model {
                 'site_url' => $site_url,
                 'site_mode' => $site_mode,
                 'site_logo' => $site_logo,
+                'analytic' => $analytic,
+                'template'=>$template,
             );
         } else {
             $data = array(
@@ -59,13 +61,15 @@ class Config_model extends CI_Model {
                 'site_footer' => $site_footer,
                 'site_url' => $site_url,
                 'site_mode' => $site_mode,
+                'analytic' => $analytic,
+                'template'=>$template,
             );
         }
         $this->db->where('id', 1);
         $this->db->update('bm_config', $data);
     }
 
-    public function _payment_status($id,$active) {
+    public function _payment_status($id, $active) {
         $data = array(
             'site_mode' => $active,
         );
@@ -73,8 +77,8 @@ class Config_model extends CI_Model {
         $this->db->update('bm_payment', $data);
         return 1;
     }
-    
-    function _del_payment($id) {  
+
+    function _del_payment($id) {
         $this->db->where('id', $id);
         $this->db->delete('bm_payment');
     }

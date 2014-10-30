@@ -31,6 +31,14 @@ class User extends CI_Controller {
     public function history() {
         redirect('user/favor');
     }
+    
+    public function  template(){
+        if($this->session->userdata('template') == 1){
+            return "template2/index";
+        }else{
+            return "frontend/index";
+        }
+    }
 
     public function index() {
         if ($this->session->userdata('userid')) {
@@ -40,7 +48,7 @@ class User extends CI_Controller {
             $data['current_balance'] = $this->user_model->_current_balance($this->session->userdata('userid'));
             $data['location'] = $this->location_model->_list_root();
             $data['sub_location'] = $this->load_sub_location();
-            $this->load->view('template2/index', $data);
+            $this->load->view( "template2/index",$data);
         } else {
             redirect('user/login');
         }
@@ -66,7 +74,7 @@ class User extends CI_Controller {
             $data['current_balance'] = $this->user_model->_current_balance($this->session->userdata('userid'));
             $data['location'] = $this->location_model->_list_root();
             $data['sub_location'] = $this->load_sub_location();
-            $this->load->view('template2/index', $data);
+            $this->load->view( "template2/index",$data);
         } else {
             redirect('user/login');
         }
@@ -81,7 +89,7 @@ class User extends CI_Controller {
             $data['location'] = $this->location_model->_list_root();
             $data['sub_location'] = $this->load_sub_location();
             $data['messagies'] = $this->user_model->_show_message($this->session->userdata('userid'));
-            $this->load->view('template2/index', $data);
+            $this->load->view( "template2/index",$data);
         } else {
             redirect('user/login');
         }
@@ -96,7 +104,7 @@ class User extends CI_Controller {
             $data['location'] = $this->location_model->_list_root();
             $data['sub_location'] = $this->load_sub_location();
             $data['list_favor'] = $this->content_model->_list_favor_user($this->session->userdata('userid'));
-            $this->load->view('template2/index', $data);
+            $this->load->view( "template2/index",$data);
         } else {
             redirect('user/login');
         }
@@ -112,7 +120,7 @@ class User extends CI_Controller {
             $data['list_content'] = $this->content_model->_list();
             $data['sub_location'] = $this->load_sub_location();
             $data['list_order'] = $this->report_model->_list_order($this->session->userdata('userid'));
-            $this->load->view('template2/index', $data);
+            $this->load->view( "template2/index",$data);
         } else {
             redirect('user/login');
         }
@@ -127,7 +135,7 @@ class User extends CI_Controller {
             $data['location'] = $this->location_model->_list_root();
             $data['messagies'] = $this->user_model->_mess_details($id);
             $data['sub_location'] = $this->load_sub_location();
-            $this->load->view('template2/index', $data);
+            $this->load->view( "template2/index",$data);
         } else {
             redirect('user/login');
         }
@@ -160,7 +168,7 @@ class User extends CI_Controller {
                 redirect($url);
             }
             $data['sub_location'] = $this->load_sub_location();
-            $this->load->view('template2/index', $data);
+            $this->load->view( "template2/index",$data);
         } else {
             redirect('user/login');
         }
@@ -187,7 +195,7 @@ class User extends CI_Controller {
         $data['slider'] = $this->content_model->_list_hot_favor();
         $data['services'] = $this->category_model->_list();
         $data['location'] = $this->location_model->_list_root();
-        $this->load->view('template2/index', $data);
+        $this->load->view( "template2/index",$data);
     }
 
     public function logout() {
@@ -227,7 +235,7 @@ class User extends CI_Controller {
         $data['slider'] = $this->content_model->_list_hot_favor();
         $data['services'] = $this->category_model->_list();
         $data['location'] = $this->location_model->_list_root();
-        $this->load->view('template2/index', $data);
+        $this->load->view( "template2/index",$data);
     }
 
     public function load_sub_location() {

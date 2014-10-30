@@ -11,7 +11,9 @@
 
 </title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-
+<meta name="keywords" content="<?php echo $this->session->userdata('site_meta') ?>">
+<meta name="description" content="<?php echo $this->session->userdata('site_description') ?>"> 
+<meta name="author" content="<?php echo site_url(); ?>"> 
 <link type="text/css" rel="stylesheet" href="<?php echo base_url('src/template2');?>/style.css" media="screen"></link>
 <link type="text/css" rel="stylesheet" href="<?php echo base_url('src/template2');?>/css.css"></link>
 <link rel="shortcut icon" href="http://kenhhd.tv/public/img/ico/icon.png" type="image/x-icon"></link>

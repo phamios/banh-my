@@ -186,12 +186,25 @@ class Content_model extends CI_Model {
         }
     }
 
-    public function _list_diff($id = null) {
+    public function _list_diff($id = null,$locationid) {
         $this->db->where('id !=', $id);
+        $this->db->where('localid',$locationid);
         $this->db->order_by('id', 'DESC');
         $query = $this->db->get('bm_content');
         if ($query->num_rows() > 0) {
             return $query->result();
+        } else {
+            return null;
+        }
+    }
+    
+    public function _getlocationid($id){
+        $this->db->where('id !=', $id);  
+        $query = $this->db->get('bm_content');
+        if ($query->num_rows() > 0) {
+            foreach($query->result() as $value){
+                return $value->localid;
+            }
         } else {
             return null;
         }

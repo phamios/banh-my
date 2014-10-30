@@ -37,6 +37,18 @@
                         <option value="1" <?php if($config->site_mode==1):?>selected="selected"  <?php endif;?>>Hoạt động </option>
                     </select>
                 </fieldset>
+                <fieldset>
+                    <label>Google Analytic</label>
+                    <input type="text" name="analytic" value="<?php echo $config->analytic?>" />
+                </fieldset>
+                <fieldset>
+                    <label>Giao diện</label>
+                     <select name="template">
+                        <option value="0" <?php if($config->template==0):?>selected="selected"  <?php endif;?> >Template Bánh mỹ</option>
+                        <option value="1" <?php if($config->template==1):?>selected="selected"  <?php endif;?>>Template Chính</option>
+                    </select>
+                </fieldset>
+                
                 
                 <div class="clear"></div>
             </div>

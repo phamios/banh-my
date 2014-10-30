@@ -4,7 +4,9 @@
 <link href="<?php echo base_url('src/bxslider'); ?>/jquery.bxslider.css" rel="stylesheet" />
 <script type="text/javascript">
     $(document).ready(function () {
-        $('.bxslider').bxSlider();
+        $('.bxslider').bxSlider({
+            pagerCustom: '#bx-pager'
+        });
     });
 </script>
 <?php if ($content_details): ?>
@@ -15,13 +17,13 @@
                 <?php if ($list_gallery): ?>
                     <ul class="bxslider">  
                         <?php foreach ($list_gallery as $imgs): ?>
-                            <li><img width="80%"src="<?php echo base_url('upload/content/' . $imgs->images_link); ?>" /></li> 
+                            <li><img width="100%"src="<?php echo base_url('upload/content/' . $imgs->images_link); ?>" /></li> 
                         <?php endforeach; ?>
                     </ul>
 
                     <div id="bx-pager">
                         <?php foreach ($list_gallery as $imgs): ?>
-                            <a data-slide-index="<?php echo $imgs->id; ?>" href="">
+                            <a data-slide-index="<?php echo $imgs->id; ?>" href="#">
                                 <img width="20%" src="<?php echo base_url('upload/content/' . $imgs->images_link); ?>" />
                             </a>
                         <?php endforeach; ?> 

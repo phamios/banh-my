@@ -12,16 +12,24 @@ class Help extends CI_Controller {
         $this->load->library('upload');
         $this->load->library('pagination');
         $this->load->library('parser');
-        $this->load->helper('cookie'); 
+        $this->load->helper('cookie');
         $this->load->model('location_model');
         $this->load->model('content_model');
         $this->load->model('category_model');
         $this->load->model('search_model');
-        $this->load->helper("text");  
-         $this->load->helper("slug");
+        $this->load->helper("text");
+        $this->load->helper("slug");
         //$this->load->library('sonclass');
         $this->load->helper(array('form', 'url'));
         @session_start();
+    }
+
+    public function template() {
+        if ($this->session->userdata('template') == 1) {
+            return "template2/index";
+        } else {
+            return "frontend/index";
+        }
     }
 
     public function index() {
@@ -29,10 +37,10 @@ class Help extends CI_Controller {
         $data['services'] = $this->category_model->_list();
         $data['sub_location'] = $this->load_sub_location();
         $data['location'] = $this->location_model->_list_root();
-        $this->load->view('template2/index', $data);
+        $this->load->view( "template2/index", $data);
     }
-    
-     public function load_sub_location() {
+
+    public function load_sub_location() {
         if ($this->session->userdata('locationname')) {
             $last = $this->session->userdata('locationid');
         } else {
@@ -53,5 +61,5 @@ class Help extends CI_Controller {
         $location = $this->location_model->get_list_sub_location($last);
         return $location;
     }
-    
+
 }

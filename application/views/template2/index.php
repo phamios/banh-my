@@ -36,6 +36,7 @@
 
                         <?php if ($this->router->class == 'details'): ?> 
                             <?php $this->load->view('template2/details/index'); ?> 
+                            <?php $this->load->view('template2/details/loadmore'); ?>	
                         <?php endif; ?>
                         <?php if ($this->router->class == 'type'): ?> 
                             <?php $this->load->view('template2/type/index'); ?> 

@@ -54,7 +54,14 @@ class Home extends CI_Controller {
         $data['location'] = $this->location_model->_list_root();
         $data['slider'] = $this->content_model->_list_hot_favor();
         $data['sub_location'] = $this->load_sub_location();
-        $this->load->view('template2/index', $data);
+        $this->load->view( "template2/index",$data);
+    }
+    public function  template(){
+        if($this->session->userdata('template') == 1){
+            return "template2/index";
+        }else{
+            return "frontend/index";
+        }
     }
 
     public function search() {
@@ -73,7 +80,7 @@ class Home extends CI_Controller {
         $data['services'] = $this->category_model->_list();
         $data['location'] = $this->location_model->_list_root();
         $data['sub_location'] = $this->load_sub_location();
-        $this->load->view('template2/index', $data);
+        $this->load->view( "template2/index",$data);
     }
 
     public function location($id = null) {
@@ -84,7 +91,7 @@ class Home extends CI_Controller {
         $data['services'] = $this->category_model->_list();
         $data['location'] = $this->location_model->_list_root();
         $data['sub_location'] = $this->load_sub_location();
-        $this->load->view('template2/index', $data);
+        $this->load->view( "template2/index",$data);
     }
 
     public function load_sub_location() {

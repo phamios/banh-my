@@ -76,9 +76,11 @@ class Config extends CI_Controller {
                 $site_footer = $this->input->post('site_footer', true);
                 $site_url = $this->input->post('site_url', true);
                 $site_mode = $this->input->post('site_mode', true);
+                $analytic = $this->input->post('analytic');
+                $template =$this->input->post('template',true);
                 $site_logo = $this->do_upload_image('./upload/content/', 'site_logo');
                 if ($id <> 0) {
-                    $this->config_model->_update($site_name, $site_meta, $site_description, $site_footer, $site_url, $site_mode, $site_logo);
+                    $this->config_model->_update($site_name, $site_meta, $site_description, $site_footer, $site_url, $site_mode, $site_logo,$analytic,$template);
                     redirect('admin/config');
                 }
             }
