@@ -8,7 +8,7 @@
 
         <div id="body" class="detail">
             <div class="container">  
-                 <?php if ($this->router->class == 'home'): ?>
+                 <?php if ($this->router->class == 'home'|| $this->router->class == 'details' || $this->router->class == 'help' || $this->router->class == 'type'): ?>
                 <div id="area_f"> 
                     <?php $this->load->view('template2/widget/slide'); ?>
                 </div>

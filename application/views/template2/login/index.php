@@ -3,8 +3,8 @@
     <h1 class="title font-1"> Đăng nhập vào hệ thống </h1>
     <div class="prpt">
         <div class="cover">
-            <div class="width45" style="">
-                <div style="padding: 15px;"> 
+            <div class="width45" style="width:300px;">
+                <div style="padding: 15px;width:300px;" > 
                     <div class="O1">
                         <a href="http://www.youtube.com/watch?v=HWwNcGQgYrU" class="active">Hướng dẫn đăng ký thành viên</a>
                     </div>
@@ -24,20 +24,20 @@
             </div>
         </div>
 
-        <div class="dt f12" style="font-size:20px;"> 
+        <div class="dt f12 input_class"  style="font-size:18px;"> 
             <?php echo form_open_multipart('user/login', array("name" => "u-login", 'id' => 'u-login')); ?>
-            <div><h3>ĐĂNG NHẬP NHANH</h3></div>
-            <div>
-
-                <input value="" class="form-control width90" name="email" id="email" type="text">
+            
+            <div> 
+                Email đăng nhập <span class="red">*</span><br/>
+                <input class=".input_class" value=""  name="email" id="email" type="text">
             </div>
             <div style="margin-top: 19px;">
-                <p>Mật khẩu <span class="red">*</span></p>
-                <input class="form-control width90" name="password" id="password" type="password">
+                Mật khẩu <span class="red">*</span><br/>
+                <input class=".input_class" name="password" id="password" type="password">
             </div>
 
-            <div class="reg_right_bg clear">
-                <input name="btt_submit" id="sub_register" value="Đăng nhập" type="submit">
+            <div class="reg_right_bg clear" style="clear:both; padding:10px;">
+                <input class=".input_class" name="btt_submit" id="sub_register" value="Đăng nhập" type="submit">
             </div>
             <?php echo form_close(); ?>
         </div>
