@@ -8,9 +8,13 @@
 
         <div id="body" class="detail">
             <div class="container">  
+                 <?php if ($this->router->class == 'home'): ?>
                 <div id="area_f"> 
                     <?php $this->load->view('template2/widget/slide'); ?>
                 </div>
+                <?php else:?>
+                <div style="padding:50px;"> </div>
+                 <?php endif; ?> 
 
                 <div class="wrap">
                     <div class="main"> 
