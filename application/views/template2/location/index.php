@@ -1,58 +1,36 @@
-<script type="text/javascript">
-    
-    $(function () {
-        $('.jcarousel').jcarousel({
-            // Configuration goes here
-        });
-        $('.jcarousel2').jcarousel({
-            // Configuration goes here
-        });
-        $('.jcarousel3').jcarousel({
-            // Configuration goes here
-        });
-        $('.jcarousel4').jcarousel({
-            // Configuration goes here
-        });
-    });
-</script>
- 
-<div class="box_home clear">
-    <div class="box_home_title box_home_title_02">
-        <h3><a href="<?php echo site_url('home/location/'.$location_id);?>"><?php echo strtoupper($location_name_current);?></a></h3>
-    </div>
-    <div class="box_home_content "> 
-        <div class="jcarousel-wrapper">
+
+<div class="box">
+    <p class="deBlue"></p>
+    <div class="header">
+        Địa điểm: <a href="<?php echo site_url('home/location/' . $location_id); ?>"><?php echo strtoupper($location_name_current); ?></a>
+    </div> 
+    <div class="content" id="content"> 
+        <ul class="list_m"> 
             <?php if ($list_content_location): ?>
-                
-                    <div class="jcarousel">
-                        <ul>
-                            <?php foreach ($list_content_location as $search): ?>
-                            <li class="width19">
-                                <div class="thumb">
-                                    <a href="<?php echo site_url("details/".create_slug($search->title)."-".$search->contentid.".html")?>" title="#">
-                                        <img src="<?php echo base_url('upload/content/thumbs_' . $search->images)?>" alt="#">
-                                    </a>
+                <?php foreach ($list_content_location as $search): ?>
+                    <li>
+                        <h2>
+                            <a href="<?php echo site_url("details/".create_slug($search->title)."-".$search->contentid.".html")?>">
+                                <span class="poster">
+                                    <img src="<?php echo base_url('upload/content/thumbs_' . $search->images)?>" alt=""/>
+                                </span>
+                                <br>
+                                <span class="title left" style="width:100%; height:28px; overflow: hidden;">
+                                    <?php echo $search->title?>
+                                </span>
+                                <div class="clear"></div>
+                                <div class="fontN" style="color:red;height:50px;"> 
+                                    <img src="<?php echo base_url('src/images/rating.png')?>" alt="rate"><?php echo $search->review?> <br/>
+                                    <span style="font-size:20px;color:black"> <?php echo number_format($search->cost)?> đ </span>
                                 </div>
-                                <div class="name">
-                                    <a href="<?php echo site_url("details/".create_slug($search->title)."-".$search->contentid.".html")?>" title="#"> <?php echo $search->title?></a>
-                                </div>
-                                <div class="street_girl">
-                                    KV:<a href="<?php echo site_url('home/location/'.$search->localid)?>" title="#"><?php echo $search->location_name?></a>
-                                </div>
-                                <div class="rating_box">
-                                    <div class="bacic" data-average="8" data-id="<?php echo $search->review?>"></div>
-                                </div>
-                                <div class="price">
-                                    Giá: <span><?php echo number_format($search->cost)?> đ</span>
-                                </div>
-                            </li>
-                             <?php endforeach; ?>
-                        </ul>
-                    </div> 
-               
+                                <span class="hot"></span>
+                            </a>
+                        </h2>
+                    </li> 
+                <?php endforeach; ?>
             <?php endif; ?>
-        </div>
+        </ul> 
     </div>
-    <div class="clear"></div>
-</div>
+</div>	
+
 

@@ -29,6 +29,8 @@
         
     </div>
 </div>	
+
+
 <div  id="content_load_ajax">
 <div class="box">
     <p class="deBlue"></p>

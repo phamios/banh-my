@@ -1,59 +1,37 @@
-<script type="text/javascript">
-    
-    $(function () {
-        $('.jcarousel').jcarousel({
-            // Configuration goes here
-        });
-        $('.jcarousel2').jcarousel({
-            // Configuration goes here
-        });
-        $('.jcarousel3').jcarousel({
-            // Configuration goes here
-        });
-        $('.jcarousel4').jcarousel({
-            // Configuration goes here
-        });
-    });
-</script>
 
+<div class="box">
+    <p class="deBlue"></p>
+    <div class="header">
+        <a href="#">Kết quả tìm kiếm</a>
+    </div> 
+    <div class="content" id="content"> 
+        <?php
+        echo ' <ul class="list_m">';
+            foreach ($result_search as $value) {
+                echo '<li>
+                    <h2>
+                    <a href="' . site_url("details/" . create_slug($value->title) . "-" . $value->contentid . ".html") . '" title="' . $value->title . '">
+                        <span class="poster">
+                        <img src="' . base_url('upload/content/thumbs_' . $value->images) . '" alt="' . $value->title . '">
+                        </span>
+                        <br>
+                        <span class="title left" style="width:100%; height:28px; overflow: hidden;">
+                         ' . $value->title . '
+                         </span>
+                         <div class="clear"></div>
+                          <div class="fontN" style="color:red;height:50px;"> Yêu thích: 
+                          ' . $value->review . ' 
+                              <img src="' . base_url('src/images/rating.png') . '" alt="rate"> <br/>
+                              <span style="font-size:20px;color:black">    ' . number_format($value->cost) . 'đ </span>
+                          </div>
+                          <span class="hot"></span>
+                     </a>
+                    </h2>
+                     </li>';
+            }
+            echo '</ul>';
+        ?>
+    </div>
+</div>	
 
-<div class="box_home clear">
-    <div class="box_home_title box_home_title_02">
-        <h3><a href="#">KẾT QUẢ TÌM KIẾM</a></h3>
-    </div>
-    <div class="box_home_content "> 
-        <div class="jcarousel-wrapper">
-            <?php if ($result_search): ?>
-                
-                    <div class="jcarousel">
-                        <ul>
-                            <?php foreach ($result_search as $search): ?>
-                            <li class="width19">
-                                <div class="thumb">
-                                    <a href="<?php echo site_url("details/".create_slug($search->title)."-".$search->contentid.".html") ?>" title="#">
-                                        <img src="<?php echo base_url('upload/content/thumbs_' . $search->images)?>" alt="#">
-                                    </a>
-                                </div>
-                                <div class="name">
-                                    <a href="<?php echo site_url("details/".create_slug($search->title)."-".$search->contentid.".html") ?>" title="#"> <?php echo $search->title?></a>
-                                </div>
-                                <div class="street_girl">
-                                    KV:<a href="<?php echo site_url('home/location/'.$search->location_id);?>" title="#"><?php echo $search->location_name?></a>
-                                </div>
-                                <div class="rating_box">
-                                    <div class="bacic" data-average="8" data-id="<?php echo $search->review?>"></div>
-                                </div>
-                                <div class="price">
-                                    Giá: <span><?php echo number_format($search->cost)?> đ</span>
-                                </div>
-                            </li>
-                             <?php endforeach; ?>
-                        </ul>
-                    </div> 
-               
-            <?php endif; ?>
-        </div>
-    </div>
-    <div class="clear"></div>
-</div>
 
