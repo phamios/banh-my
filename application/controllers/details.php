@@ -34,8 +34,30 @@ class Details extends CI_Controller {
         $newdata = array(
             'title_content' => $this->content_model->_return_title($this->product), 
         );
+        $data['sub_location'] = $this->load_sub_location();
         $this->session->set_userdata($newdata);
         $this->load->view('template2/index', $data);
     }
 
+     public function load_sub_location() {
+        if ($this->session->userdata('locationname')) {
+            $last = $this->session->userdata('locationid');
+        } else {
+            $last_location = $this->location_model->_lastlist_root();
+            $last = null;
+            $last_name_location = null;
+            foreach ($last_location as $local) {
+                $last = $local->id;
+                $last_name_location = $local->location_name;
+            }
+            $newdata = array(
+                'locationname' => $last_name_location,
+                'locationid' => $last,
+            );
+            $this->session->set_userdata($newdata);
+        }
+
+        $location = $this->location_model->get_list_sub_location($last);
+        return $location;
+    }
 }

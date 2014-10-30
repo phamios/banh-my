@@ -1,28 +1,18 @@
 <div class="box">
     <p class="deBlue"></p>
-    <div class="header">Thông báo</div> 
-    <div id="noidungthongbao" class="content" style="padding:20px;text-align: center;padding-left:100px;"> 
-
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $.ajax({
-                    url: '<?php echo site_url('ajax/load_location'); ?>',
-                    dataType: 'html',
-                    success: function (html) {
-                        $('#lowerHeader_content').html(html);
-                    }
-                });
-
-            });
-        </script>
-
-        <div class="lowerHeader_title">
-            <h3>KHU VỰC <?php echo strtoupper($this->session->userdata('locationname')); ?></h3>
-        </div>
-        <div class="lowerHeader_content clear" style="color:black" id="lowerHeader_content">
+    <div class="header">Địa điểm trong khu vực </div> 
+    <div id="noidungthongbao" class="content" style="padding:20px;font-size:15px; font-weight: bold; "> 
  
+        <div class="lowerHeader_title">
+            <?php if ($sub_location): ?>
+                <?php foreach ($sub_location as $sub): ?>
+            <a style="color:red;" href="<?php echo site_url('home/location/' . $sub->id)?>">
+                <?php echo $sub->location_name; ?>
+            </a> | 
+                <?php endforeach; ?>
+            <?php endif; ?>
         </div>
-        <div class="clear"></div> 
+
 
     </div>
 </div>

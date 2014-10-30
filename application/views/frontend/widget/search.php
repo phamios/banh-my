@@ -1,7 +1,6 @@
 <header>
     <div class="upperHeader">
-        <div class="width30 logo pull-left">
-          
+        <div class="width30 logo pull-left"> 
             <a href="<?php echo site_url();?>"><img src="<?php echo base_url('upload/content/'. $this->session->userdata('site_logo')); ?>" height="78" width="256"></a>
         </div>
         <div class="width70 pull-righ">

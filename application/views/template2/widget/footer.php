@@ -1,24 +1,12 @@
 <div class="wrap">
         <div class="links" style="padding:8px 0;">
-
-            <div class="l">
-                <ul>
-                    <li><a href="http://kenhhd.tv/phim-moi.html">Phim mới</a></li>
-                    <li><a href="http://kenhhd.tv/phim-xem-nhieu.html">Phim xem nhiều</a></li>
-                    <li><a href="http://kenhhd.tv/phim-chieu-rap.html">Phim chiếu rạp</a></li>
-                    <li><a href="http://kenhhd.tv/phim-le.html">Phim lẻ</a></li>
-                    <li><a href="http://kenhhd.tv/phim-bo.html">Phim bộ</a></li>
-
-                    <li><a href="#qwe" class="send_movie_request">Yêu cầu phim</a></li>
-                </ul>
-            </div>
-
+ 
             <div class="r">
                 <ul>
-                    <li><a href="http://kenhhd.tv/fix_idm.html">Khắc phục lỗi Video Not Found</a></li>
-                    <li><a href="http://kenhhd.tv/introduction.html">Giới thiệu</a></li>
-                    <li><a href="http://kenhhd.tv/regulation.html">Quy định</a></li>
-                    <li><a href="http://kenhhd.tv/guide.html">Hướng dẫn</a></li>
+                    <li><a href="#">Khắc phục lỗi Video Not Found</a></li>
+                    <li><a href="#">Giới thiệu</a></li>
+                    <li><a href="#">Quy định</a></li>
+                    <li><a href="#">Hướng dẫn</a></li>
                 </ul>
             </div>
 
@@ -28,7 +16,7 @@
 
         <div class="content" style="line-height:16px; padding:0px; color:#999">
             <div class="left">
-                Bản quyền thuộc về KenhHD.tv<br>
+                Bản quyền thuộc về &copy <?php echo $this->session->userdata('site_name') ?> <br>
             </div>
             <div class="right textR">
                 <strong>

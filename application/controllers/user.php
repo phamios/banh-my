@@ -24,6 +24,14 @@ class User extends CI_Controller {
         @session_start();
     }
 
+    public function upgrade() {
+        redirect('user/deposit');
+    }
+
+    public function history() {
+        redirect('user/favor');
+    }
+
     public function index() {
         if ($this->session->userdata('userid')) {
             $data['services'] = $this->category_model->_list();
@@ -31,6 +39,7 @@ class User extends CI_Controller {
             $data['userdetails'] = $this->user_model->details_user($this->session->userdata('userid'));
             $data['current_balance'] = $this->user_model->_current_balance($this->session->userdata('userid'));
             $data['location'] = $this->location_model->_list_root();
+            $data['sub_location'] = $this->load_sub_location();
             $this->load->view('template2/index', $data);
         } else {
             redirect('user/login');
@@ -56,6 +65,7 @@ class User extends CI_Controller {
             $data['userdetails'] = $this->user_model->details_user($this->session->userdata('userid'));
             $data['current_balance'] = $this->user_model->_current_balance($this->session->userdata('userid'));
             $data['location'] = $this->location_model->_list_root();
+            $data['sub_location'] = $this->load_sub_location();
             $this->load->view('template2/index', $data);
         } else {
             redirect('user/login');
@@ -69,13 +79,14 @@ class User extends CI_Controller {
             $data['userdetails'] = $this->user_model->details_user($this->session->userdata('userid'));
             $data['current_balance'] = $this->user_model->_current_balance($this->session->userdata('userid'));
             $data['location'] = $this->location_model->_list_root();
+            $data['sub_location'] = $this->load_sub_location();
             $data['messagies'] = $this->user_model->_show_message($this->session->userdata('userid'));
             $this->load->view('template2/index', $data);
         } else {
             redirect('user/login');
         }
     }
-    
+
     public function favor() {
         if ($this->session->userdata('userid')) {
             $data['slider'] = $this->content_model->_list_hot_favor();
@@ -83,7 +94,7 @@ class User extends CI_Controller {
             $data['userdetails'] = $this->user_model->details_user($this->session->userdata('userid'));
             $data['current_balance'] = $this->user_model->_current_balance($this->session->userdata('userid'));
             $data['location'] = $this->location_model->_list_root();
-            
+            $data['sub_location'] = $this->load_sub_location();
             $data['list_favor'] = $this->content_model->_list_favor_user($this->session->userdata('userid'));
             $this->load->view('template2/index', $data);
         } else {
@@ -91,7 +102,7 @@ class User extends CI_Controller {
         }
     }
 
-    public function report(){
+    public function report() {
         if ($this->session->userdata('userid')) {
             $data['slider'] = $this->content_model->_list_hot_favor();
             $data['services'] = $this->category_model->_list();
@@ -99,12 +110,14 @@ class User extends CI_Controller {
             $data['current_balance'] = $this->user_model->_current_balance($this->session->userdata('userid'));
             $data['location'] = $this->location_model->_list_root();
             $data['list_content'] = $this->content_model->_list();
+            $data['sub_location'] = $this->load_sub_location();
             $data['list_order'] = $this->report_model->_list_order($this->session->userdata('userid'));
             $this->load->view('template2/index', $data);
         } else {
             redirect('user/login');
         }
     }
+
     public function read_mess($id) {
         if ($this->session->userdata('userid')) {
             $data['slider'] = $this->content_model->_list_hot_favor();
@@ -113,6 +126,7 @@ class User extends CI_Controller {
             $data['current_balance'] = $this->user_model->_current_balance($this->session->userdata('userid'));
             $data['location'] = $this->location_model->_list_root();
             $data['messagies'] = $this->user_model->_mess_details($id);
+            $data['sub_location'] = $this->load_sub_location();
             $this->load->view('template2/index', $data);
         } else {
             redirect('user/login');
@@ -144,10 +158,8 @@ class User extends CI_Controller {
                 $return = site_url('user/deposit/successful_' . $this->session->userdata('userid') . '_' . $amount);
                 $url = "https://www.nganluong.vn/button_payment.php?receiver=$reciever&product_name=$product&price=$amount&return_url=$return";
                 redirect($url);
-                
-                
             }
-
+            $data['sub_location'] = $this->load_sub_location();
             $this->load->view('template2/index', $data);
         } else {
             redirect('user/login');
@@ -171,6 +183,7 @@ class User extends CI_Controller {
                 redirect('home/index');
             }
         }
+        $data['sub_location'] = $this->load_sub_location();
         $data['slider'] = $this->content_model->_list_hot_favor();
         $data['services'] = $this->category_model->_list();
         $data['location'] = $this->location_model->_list_root();
@@ -210,10 +223,33 @@ class User extends CI_Controller {
                 unset($_SESSION['captcha']);
             }
         }
+        $data['sub_location'] = $this->load_sub_location();
         $data['slider'] = $this->content_model->_list_hot_favor();
         $data['services'] = $this->category_model->_list();
         $data['location'] = $this->location_model->_list_root();
         $this->load->view('template2/index', $data);
+    }
+
+    public function load_sub_location() {
+        if ($this->session->userdata('locationname')) {
+            $last = $this->session->userdata('locationid');
+        } else {
+            $last_location = $this->location_model->_lastlist_root();
+            $last = null;
+            $last_name_location = null;
+            foreach ($last_location as $local) {
+                $last = $local->id;
+                $last_name_location = $local->location_name;
+            }
+            $newdata = array(
+                'locationname' => $last_name_location,
+                'locationid' => $last,
+            );
+            $this->session->set_userdata($newdata);
+        }
+
+        $location = $this->location_model->get_list_sub_location($last);
+        return $location;
     }
 
 }

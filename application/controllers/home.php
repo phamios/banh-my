@@ -12,15 +12,15 @@ class Home extends CI_Controller {
         $this->load->library('upload');
         $this->load->library('pagination');
         $this->load->library('parser');
-        $this->load->helper('cookie'); 
+        $this->load->helper('cookie');
         $this->load->model('location_model');
         $this->load->model('content_model');
         $this->load->model('config_model');
         $this->load->model('search_model');
-        $this->load->helper("text");  
-         $this->load->helper("slug");
+        $this->load->helper("text");
+        $this->load->helper("slug");
         //$this->load->library('sonclass');
-         $session = $this->config_model->_details();
+        $session = $this->config_model->_details();
         foreach ($session as $value) {
             $site_name = $value->site_name;
             $site_meta = $value->site_meta;
@@ -31,9 +31,9 @@ class Home extends CI_Controller {
             $site_logo = $value->site_logo;
         }
         $search = $this->search_model->_list_top();
-          
+
         $newdata = array(
-            'top_serch' =>$search,
+            'top_serch' => $search,
             'site_name' => $site_name,
             'site_meta' => $site_meta,
             'site_description' => $site_description,
@@ -42,8 +42,8 @@ class Home extends CI_Controller {
             'site_mode' => $site_mode,
             'site_logo' => $site_logo,
         );
-        
-        
+
+
         $this->session->set_userdata($newdata);
         $this->load->helper(array('form', 'url'));
         @session_start();
@@ -51,14 +51,15 @@ class Home extends CI_Controller {
 
     public function index() {
         $data['services'] = $this->category_model->_list();
-        $data['location'] = $this->location_model->_list_root(); 
-           $data['slider'] = $this->content_model->_list_hot_favor();
+        $data['location'] = $this->location_model->_list_root();
+        $data['slider'] = $this->content_model->_list_hot_favor();
+        $data['sub_location'] = $this->load_sub_location();
         $this->load->view('template2/index', $data);
     }
 
     public function search() {
         $keyword = null;
-        $result = null; 
+        $result = null;
         if (isset($_REQUEST['sub_search'])) {
             $keyword = $this->input->post('q', true);
             $cost = $this->input->post('price', true);
@@ -71,6 +72,7 @@ class Home extends CI_Controller {
         $data['result_search'] = $result;
         $data['services'] = $this->category_model->_list();
         $data['location'] = $this->location_model->_list_root();
+        $data['sub_location'] = $this->load_sub_location();
         $this->load->view('template2/index', $data);
     }
 
@@ -78,10 +80,33 @@ class Home extends CI_Controller {
         $data['slider'] = $this->content_model->_list_hot_favor();
         $data['location_id'] = $id;
         $data['location_name_current'] = $this->location_model->_return_name($id);
-        $data['list_content_location'] = $this->content_model->_getList_bylocation($id); 
+        $data['list_content_location'] = $this->content_model->_getList_bylocation($id);
         $data['services'] = $this->category_model->_list();
-        $data['location'] = $this->location_model->_list_root(); 
+        $data['location'] = $this->location_model->_list_root();
+        $data['sub_location'] = $this->load_sub_location();
         $this->load->view('template2/index', $data);
+    }
+
+    public function load_sub_location() {
+        if ($this->session->userdata('locationname')) {
+            $last = $this->session->userdata('locationid');
+        } else {
+            $last_location = $this->location_model->_lastlist_root();
+            $last = null;
+            $last_name_location = null;
+            foreach ($last_location as $local) {
+                $last = $local->id;
+                $last_name_location = $local->location_name;
+            }
+            $newdata = array(
+                'locationname' => $last_name_location,
+                'locationid' => $last,
+            );
+            $this->session->set_userdata($newdata);
+        }
+
+        $location = $this->location_model->get_list_sub_location($last);
+        return $location;
     }
 
 }

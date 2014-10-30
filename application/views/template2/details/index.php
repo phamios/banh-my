@@ -7,8 +7,7 @@
                     <div class="width45" style="">
                         <div style="padding: 15px;"> 
                             <?php if ($list_gallery): ?>
-                                <ul class="bxslider"> 
-
+                                <ul class="bxslider">  
                                     <?php foreach ($list_gallery as $imgs): ?>
                                         <li><img width="90%"src="<?php echo base_url('upload/content/' . $imgs->images_link); ?>" /></li> 
                                     <?php endforeach; ?>
@@ -25,15 +24,14 @@
                     </div>
                 </div>
 
-                <div class="dt f12">
+                <div class="dt f12" style="font-size:20px;">
                     <p>
                         <?php if ($this->session->userdata('userid')): ?>
                             <a href="<?php echo site_url('ajax/favor/' . $this->session->userdata('userid') . '/' . $content->contentid); ?>"><img width="30%" src="<?php echo base_url('src/images/favor.png'); ?>" alt=""  /></a>
                             <a href="<?php echo site_url('ajax/star/' . $content->contentid); ?>"><img width="30%" src="<?php echo base_url('src/images/star.png'); ?>" alt="" /> </a>
                             <a href="<?php echo site_url('ajax/report/' . $this->session->userdata('userid') . '/' . $content->contentid); ?>"><img width="30%" src="<?php echo base_url('src/images/err.png'); ?>" alt="" />  </a>
                         <?php endif; ?>
-                    </p>
-
+                    </p> 
                     <p><?php $checked = ""; ?>
                         <?php if ($cateogries): ?>
                             <?php foreach ($cateogries as $cate): ?>
@@ -46,34 +44,28 @@
                                     <span class="<?php echo $checked; ?>"><?php echo $cate->cate_name; ?></span>
                                 <?php endforeach; ?> 
                             <?php endforeach; ?>
-                        <?php endif; ?>
-        <!--                <span class="check0">Blowjob</span>
-        <span class="check1">wc</span> -->
-                    </p>
-
+                        <?php endif; ?> 
+                    </p> 
                     <p>
                     <div>
-                        <div class="width50">
-
-                            <p>Giá: <span class="chang"><?php echo number_format($content->cost); ?> đ</span></p>
-        <!--                        <p >
-                                Bạn chưa biết lấy số <br>
-                                <strong>Bấm</strong> 
-                                <a href="#" title="" style="color: blue;">vào để xem hướng dẫn</a>
-                            </p>-->
-
+                        <div class="width50"> 
+                            <p>Giá: <span class="chang"><?php echo number_format($content->cost); ?> đ</span></p> 
                         </div>
-                        <div class="width50">
+                        <div class="width50"> 
 
-                            <div class="r-details" id="result" class="result">
-                                <?php if ($this->session->userdata('userid') == null) : ?>
-                                    <a class="buttona" href="<?php echo site_url('user/login'); ?>" title="">Bạn phải là thành viên mới xem được</a>
-                                <?php else: ?>
-                                    <a class="buttona" id="getdata" title="">Lấy số &amp; chén NGAY BÂY GIỜ</a>
-                                <?php endif; ?>
-
-                            </div>
-
+                            <?php if ($this->session->userdata('userid') == null) : ?>
+                                <a class="buttona" href="<?php echo site_url('user/login'); ?>" title="">
+                                    <div class="r-details" id="result" class="result">
+                                        Bạn phải là thành viên mới xem được
+                                    </div> 
+                                </a>
+                            <?php else: ?>
+                                <a class="buttona" id="getdata" title="">
+                                    <div class="r-details" id="result" class="result">
+                                        Lấy số &amp; chén NGAY BÂY GIỜ
+                                    </div> 
+                                </a>
+                            <?php endif; ?>  
                             <?php
                             $userid = $this->session->userdata('userid');
                             $cost = $content->cost;
@@ -92,19 +84,14 @@
                                         } // End of success function of ajax form
                                     }); // End of ajax call	 
                                 });
-                            </script>
-
+                            </script> 
                         </div>
-                        <div class="clear"></div>
+
                     </div>
                     </p>
-                    <p>
-                        <?php echo $content->title; ?></span>
-                    </p>
 
                     <p>
-                    <div class="info-girl" id="info-girl"> 
-
+                    <div class="info-girl" id="info-girl">  
                         <p><b style="color: red;">Người đăng:</b>
                             <?php if ($list_users): ?>
                                 <?php foreach ($list_users as $user): ?>
@@ -120,8 +107,7 @@
                         </p>
                         <p><b style="color: red;"> Điểm tín dụng:</b> <?php echo $content->review; ?>
                         </p>
-                        <p><b style="color: red;">Thời gian đăng:</b> <?php echo $content->datecreated; ?> </p>
-
+                        <p><b style="color: red;">Thời gian đăng:</b> <?php echo $content->datecreated; ?> </p> 
                         <div class="clear"></div>
                     </div>
                     </p>
@@ -129,12 +115,11 @@
 
 
                 </div>
-                <div class="clear"></div>
 
                 <div class="entry mb20">
                     <div align="justify">
-                        <font size="4" color="#ffffff">
-                        <span style="background-color: rgb(0, 0, 0);">P
+                        <font size="5" color="#ffffff">
+                        <span style="background-color: rgb(0, 0, 0); color:#FFF;"> 
                             <?php echo $content->content; ?>
                         </span>
                         </font>

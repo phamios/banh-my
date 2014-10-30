@@ -6,6 +6,7 @@
     </div> 
     <div class="content" id="content"> 
         <?php
+        if($result_search){
         echo ' <ul class="list_m">';
             foreach ($result_search as $value) {
                 echo '<li>
@@ -30,7 +31,13 @@
                      </li>';
             }
             echo '</ul>';
+        } else { 
         ?>
+        
+        <div style="font-size:18px; padding:20px;">
+                Không tìm thấy kết quả phù hợp !
+        </div>
+        <?php }?>
     </div>
 </div>	
 

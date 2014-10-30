@@ -5,22 +5,45 @@
             <ul class="left_nav_ul" style="width:auto;">
                 <li class="top_nav_border_right"></li>
                 <li class=" haveChild">
-                    <a href="#"><span>Trang chủ</span></a> 
+                    <a href="<?php echo site_url(); ?>"><span>Trang chủ</span></a> 
                 </li>
                 <li class="top_nav_border_right"></li> 
+                 <?php foreach($location as $loca):?> 
+                <li class=" haveChild"> 
+                        <a href="<?php echo site_url('ajax/change_location/'.$loca->id);?>"><span><?php echo $loca->location_name?></span></a> 
+                        <ul class="left_nav_child"> 
+                            <?php foreach($location as $sub_location):?> 
+                            <?php if($sub_location->location_root == $loca->id):?>
+                            <li>
+                                <a href="<?php echo site_url('ajax/change_location/'.$sub_location->id);?>" title="#">
+                                   <?php echo $sub_location->location_name?>
+                                </a>
+                            </li>
+                            <?php endif;?>
+                            <?php endforeach;?>
+                        </ul>
+                     
+                </li>
+                <?php endforeach;?>
             </ul>
         </nav>
 
         <nav id="right-nav">         
             <div id="account_panel" class="right mt15 mr5"> 
-                <div class="left fontB f12">
-                    <a href="#" class="ml10">
-                        Đăng ký		
-                    </a>
+                <div class="left fontB f12" style="padding:10px; font-size: 15px;">
+                    
+                    <?php if ($this->session->userdata('userid')): ?>
+            <a href="<?php echo site_url('user');?>">
+                    <span style="color:#f99f1c"><?php echo $this->session->userdata('username'); ?> </span>
+                </a> | 
+            
+               <a href="<?php echo site_url('user/logout'); ?>" rel="nofollow">Thoát</a>
 
-                    <a href="#login" id="act_account_login" class="ml10" style="color:red;">
-                        Đăng nhập		
-                    </a>
+            <?php else: ?>
+               <a class="ml10" href="<?php echo site_url('user/login'); ?>" rel="nofollow">Đăng nhập</a> |
+                <a id="act_account_login" class="ml10" style="color:red;" href="<?php echo site_url('user/register'); ?>" rel="nofollow">Đăng ký</a> 
+            <?php endif; ?>
+                
                 </div> 
             </div>
         </nav>
@@ -28,8 +51,8 @@
 </div>
 <div id="search_wrap"> 
     <div class="left mt5 ml10">
-        <a href="#">
-            <img src="<?php echo base_url('src/template2'); ?>/logo.png">
+        <a href="<?php echo site_url(); ?>">
+            <img src="<?php echo base_url('upload/content/' . $this->session->userdata('site_logo')); ?>" height="78" width="256">
         </a>
     </div>
 

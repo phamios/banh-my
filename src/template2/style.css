@@ -1954,4 +1954,19 @@ table.cards td
     background: #fff;
 }
 
- 
+.check0{
+    color: white;
+}
+
+.check1{
+    color:red;
+}
+
+.r-details{
+    height: 50px;
+    background-color: #DC4381;
+    padding:10px;
+    margin:10px;
+    text-align: center;
+    vertical-align: central;
+}
