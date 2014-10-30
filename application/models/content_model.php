@@ -123,6 +123,38 @@ class Content_model extends CI_Model {
             return null;
         }
     }
+    
+    
+    public function _list_hot_favor() {
+
+        $sql = "SELECT bm_content.id as contentid, 
+                    bm_content.localid as location_id, 
+                    bm_content.typeid, 
+                    bm_content.userid, 
+                    bm_content.title, 
+                    bm_content.content, 
+                    bm_content.gallery_id, 
+                    bm_content.images, 
+                    bm_content.cost, 
+                    bm_content.datecreated, 
+                    bm_content.`status`, 
+                    bm_content.review, 
+                    bm_location.active, 
+                    bm_content.view,
+                    bm_location.location_root, 
+                    bm_location.location_name, 
+                    bm_location.id
+            FROM bm_location INNER JOIN bm_content ON bm_location.id = bm_content.localid
+            WHERE bm_content.`status`= 1
+            ORDER BY bm_content.view ASC";
+
+        $query = $this->db->query($sql);
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return null;
+        }
+    }
 
     public function _get_list_by_type($typeid, $locationid) {
 

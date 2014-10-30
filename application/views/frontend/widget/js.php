@@ -12,6 +12,10 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+
+        
+
+
         // simple jRating call
         $(".rating_box").jRating();
 

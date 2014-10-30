@@ -206,6 +206,7 @@ class Ajax extends CI_Controller {
             $contents = $this->content_model->_get_list_by_type($type->id, $this->session->userdata('locationid'));
             if ($contents) {
                 echo ' <ul >';
+                $i = 0;
                 foreach ($contents as $value) {
                     echo '<li class="width9">
                                             <div class="thumb">
@@ -228,8 +229,13 @@ class Ajax extends CI_Controller {
                                                 Giá: <span>' . number_format($value->cost) . ' đ</span>
                                             </div>
                                         </li>';
+                    if($i%2){
+                        echo "</ul>";
+                    }
+
+                    $i++;
                 }
-                echo '</ul>';
+                //echo '</ul>';
             } else {
                 echo "Chưa có hàng";
             }

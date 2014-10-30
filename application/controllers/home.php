@@ -51,10 +51,8 @@ class Home extends CI_Controller {
 
     public function index() {
         $data['services'] = $this->category_model->_list();
-        $data['location'] = $this->location_model->_list_root();
-        
-        
-        $this->load->view('frontend/index', $data);
+        $data['location'] = $this->location_model->_list_root(); 
+        $this->load->view('template2/index', $data);
     }
 
     public function search() {
