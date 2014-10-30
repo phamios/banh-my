@@ -34,14 +34,22 @@
                     
                     <?php if ($this->session->userdata('userid')): ?>
             <a href="<?php echo site_url('user');?>">
-                    <span style="color:#f99f1c"><?php echo $this->session->userdata('username'); ?> </span>
-                </a> | 
-            
-               <a href="<?php echo site_url('user/logout'); ?>" rel="nofollow">Thoát</a>
+                    <span style="color:#f99f1c;"> 
+                            <?php echo $this->session->userdata('username'); ?> 
+                    </span>
+                </a> 
+                    &nbsp;&nbsp;&nbsp;
+               <a href="<?php echo site_url('user/logout'); ?>" rel="nofollow">
+               <img   src="<?php echo base_url('src/images/exit.png');?>" alt="login"/>
+               </a>
 
             <?php else: ?>
-               <a class="ml10" href="<?php echo site_url('user/login'); ?>" rel="nofollow">Đăng nhập</a> |
-                <a id="act_account_login" class="ml10" style="color:red;" href="<?php echo site_url('user/register'); ?>" rel="nofollow">Đăng ký</a> 
+               <a class="ml10" href="<?php echo site_url('user/login'); ?>" rel="nofollow">
+                   <img   src="<?php echo base_url('src/images/login.png');?>" alt="login"/>
+               </a> 
+                <a id="act_account_login" class="ml10" style="color:red;" href="<?php echo site_url('user/register'); ?>" rel="nofollow">
+                    <img  src="<?php echo base_url('src/images/reg.png');?>" alt="login"/>
+                </a> 
             <?php endif; ?>
                 
                 </div> 

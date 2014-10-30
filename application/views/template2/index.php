@@ -8,19 +8,18 @@
 
         <div id="body" class="detail">
             <div class="container">  
-                 <?php if ($this->router->class == 'home'|| $this->router->class == 'details' || $this->router->class == 'help' || $this->router->class == 'type'): ?>
-                <div id="area_f"> 
-                    <?php $this->load->view('template2/widget/slide'); ?>
-                </div>
-                <?php else:?>
-                <div style="padding:50px;"> </div>
-                 <?php endif; ?> 
+                <?php if ($this->router->class == 'home' || $this->router->class == 'details' || $this->router->class == 'help' || $this->router->class == 'type'): ?>
+                    <div id="area_f"> 
+                        <?php $this->load->view('template2/widget/slide'); ?>
+                    </div>
+                <?php else: ?>
+                    <div style="padding:50px;"> </div>
+                <?php endif; ?> 
 
                 <div class="wrap">
                     <div class="main"> 
                         <!-- Thong bao -->
-                        <?php $this->load->view('template2/notification'); ?>	
-                        <!-- Phim le moi -->
+                        <?php $this->load->view('template2/notification'); ?>	 
 
                         <?php if ($this->router->class == 'home'): ?>
                             <?php if ($this->router->fetch_method() == 'index'): ?>
@@ -44,7 +43,7 @@
                         <?php if ($this->router->class == 'help'): ?> 
                             <?php $this->load->view('template2/help/index'); ?> 
                         <?php endif; ?>
-                        
+
                         <?php if ($this->router->class == 'user'): ?> 
                             <?php if ($this->router->fetch_method() == 'index'): ?>
                                 <?php $this->load->view('template2/user/index'); ?>

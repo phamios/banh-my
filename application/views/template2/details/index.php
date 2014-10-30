@@ -122,12 +122,14 @@
                     </div>
                 </div>
                 <div style="clear:both; width:100%;padding-top:20px;">
-                    <b style="color: wheat;"> Điểm tín dụng:</b> <b style="color: white;"><?php echo $content->review; ?></b> <img src="<?php echo base_url('src/images/rating.png') ?>" alt=""/>
+                    <b style="color: wheat;"> Điểm tín dụng:</b>
+                    <b style="color: white;"><?php echo ($content->review*10)/100; ?></b>
+                    <img src="<?php echo base_url('src/images/rating.png') ?>" alt=""/>
                 </div>
                 <div style="clear:both; width:100%;padding-top:20px;">
                     <b style="color: wheat;">Thời gian đăng:</b> <?php echo $content->datecreated; ?>
                 </div>
-                <div style="clear:both; width:100%;padding-top:20px;color:#FFF;background-color: rgb(0, 0, 0);">
+                <div style="clear:both; width:100%;padding-top:20px;color:#FFF;">
                     <?php echo $content->content; ?>
                 </div>
 

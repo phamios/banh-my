@@ -83,8 +83,15 @@ class Content extends CI_Controller {
                 $this->content_model->_update($id, $catename, $cateroot, $cate_active, $cate_images);
                 redirect('admin/content/index');
             }
-            $data['category'] = $this->content_model->_details($id);
-            $data['list_content'] = $this->content_model->_list_diff($id);
+            $data['list_content'] = $this->content_model->_list();
+            $data['list_user'] = $this->user_model->_list();
+            $data['list_catecontent'] = $this->content_model->_list_catecontent($id);
+            $data['list_category'] = $this->category_model->_list();
+            $data['list_location'] = $this->location_model->_list();
+            $data['list_location_root'] = $this->location_model->_list_root();
+            $data['list_type'] = $this->type_model->_list(); 
+            $data['content_details'] = $this->content_model->_details($id);
+            $data['list_content'] = $this->content_model->_list_diff_edit($id);
             $this->load->view('admin/dashboard', $data);
         }
     }
