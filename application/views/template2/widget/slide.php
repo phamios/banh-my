@@ -1,10 +1,10 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $.ajax({
-            url: '<?php echo site_url('sub_ajax/load_content'); ?>',
+            url: '<?php echo site_url('sub_ajax/content_favor'); ?>',
             dataType: 'html',
             success: function (data1) {
-                $('#content_load_ajax').html(data1);
+                $('#lstBaner').html(data1);
             }
         }); 
     });
@@ -18,7 +18,7 @@
             <div style="text-align: start; float: none; position: relative; top: auto; right: auto; bottom: auto; left: auto; width: 980px; height: 317px; margin: 0px; overflow: hidden;" class="caroufredsel_wrapper">
                 <div style="text-align: left; float: none; position: absolute; top: 0px; left: 0px; margin: 0px; width: 12740px; height: 317px;" id="lstBaner">
                     <!--------Item Slide-->
-                    <div style="margin-right: 1px;" class="item">
+                    <div  style="margin-right: 1px;" class="item">
                         <div class="img rel">
                             <a href="http://kenhhd.tv/movie-4978/Castle-Season-7-Nha-Van-Pha-An-Phan-7-2014-0423-Tap.html">
                                 <img src="<?php echo base_url('src/template2'); ?>/0e371012ef4922d420d16eb5c6f443b5_thumb.jpg" class="imgnone">
