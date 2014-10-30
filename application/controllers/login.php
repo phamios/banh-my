@@ -25,9 +25,10 @@ class Login  extends CI_Controller {
     }
 
     public function index() {
+        $data['slider'] = $this->content_model->_list_hot_favor();
         $data['services'] = $this->category_model->_list();
         $data['location'] = $this->location_model->_list_root();
-        $this->load->view('frontend/index', $data);
+        $this->load->view('template2/index', $data);
     }
     
 }

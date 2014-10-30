@@ -53,7 +53,7 @@ class Sub_ajax extends CI_Controller {
             echo "</select>";
         }
     }
-
+ 
     public function content_favor() {
         $data = $this->content_model->_list_hot_favor();
         if ($data) {
@@ -68,7 +68,7 @@ class Sub_ajax extends CI_Controller {
                                 <div class="hidden-tip" fid="9909">
                                     <div id="popupTit" class="tit ">
                                         <span id="lblTitleEng" class="bold cB block">
-                                            ' . $value->title . '   '.word_limiter($value->content,7).'
+                                            ' . $value->title . '   
                                                
                                         </span>
                                         <span id="lblTitle" class="cG block" style="margin: 3px 0px;"></span> 
@@ -86,7 +86,7 @@ class Sub_ajax extends CI_Controller {
                                 <p class="title" style="width:180px; height:38px; overflow: hidden;">
                                     <a href="' . site_url("details/" . create_slug($value->title) . "-" . $value->contentid . ".html") . '">' . $value->title . '</a>
                                         <br/>
-                                        '.word_limiter($value->content,7).'
+                                       
                                 </p>
                                 <a href="#"><span class="iconPlayS"></span></a>
                             </div>

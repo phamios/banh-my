@@ -22,6 +22,7 @@ class Details extends CI_Controller {
     }
 
     public function _remap() {
+        $data['slider'] = $this->content_model->_list_hot_favor();
         $data['services'] = $this->category_model->_list();
         $data['location'] = $this->location_model->_list_root();
         $data['cateogries'] =$this->category_model->_list();
@@ -34,7 +35,7 @@ class Details extends CI_Controller {
             'title_content' => $this->content_model->_return_title($this->product), 
         );
         $this->session->set_userdata($newdata);
-        $this->load->view('frontend/index', $data);
+        $this->load->view('template2/index', $data);
     }
 
 }

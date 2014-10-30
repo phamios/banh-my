@@ -27,10 +27,11 @@ class User extends CI_Controller {
     public function index() {
         if ($this->session->userdata('userid')) {
             $data['services'] = $this->category_model->_list();
+            $data['slider'] = $this->content_model->_list_hot_favor();
             $data['userdetails'] = $this->user_model->details_user($this->session->userdata('userid'));
             $data['current_balance'] = $this->user_model->_current_balance($this->session->userdata('userid'));
             $data['location'] = $this->location_model->_list_root();
-            $this->load->view('frontend/index', $data);
+            $this->load->view('template2/index', $data);
         } else {
             redirect('user/login');
         }
@@ -50,11 +51,12 @@ class User extends CI_Controller {
                 }
                 redirect('user');
             }
+            $data['slider'] = $this->content_model->_list_hot_favor();
             $data['services'] = $this->category_model->_list();
             $data['userdetails'] = $this->user_model->details_user($this->session->userdata('userid'));
             $data['current_balance'] = $this->user_model->_current_balance($this->session->userdata('userid'));
             $data['location'] = $this->location_model->_list_root();
-            $this->load->view('frontend/index', $data);
+            $this->load->view('template2/index', $data);
         } else {
             redirect('user/login');
         }
@@ -62,12 +64,13 @@ class User extends CI_Controller {
 
     public function message() {
         if ($this->session->userdata('userid')) {
+            $data['slider'] = $this->content_model->_list_hot_favor();
             $data['services'] = $this->category_model->_list();
             $data['userdetails'] = $this->user_model->details_user($this->session->userdata('userid'));
             $data['current_balance'] = $this->user_model->_current_balance($this->session->userdata('userid'));
             $data['location'] = $this->location_model->_list_root();
             $data['messagies'] = $this->user_model->_show_message($this->session->userdata('userid'));
-            $this->load->view('frontend/index', $data);
+            $this->load->view('template2/index', $data);
         } else {
             redirect('user/login');
         }
@@ -75,13 +78,14 @@ class User extends CI_Controller {
     
     public function favor() {
         if ($this->session->userdata('userid')) {
+            $data['slider'] = $this->content_model->_list_hot_favor();
             $data['services'] = $this->category_model->_list();
             $data['userdetails'] = $this->user_model->details_user($this->session->userdata('userid'));
             $data['current_balance'] = $this->user_model->_current_balance($this->session->userdata('userid'));
             $data['location'] = $this->location_model->_list_root();
             
             $data['list_favor'] = $this->content_model->_list_favor_user($this->session->userdata('userid'));
-            $this->load->view('frontend/index', $data);
+            $this->load->view('template2/index', $data);
         } else {
             redirect('user/login');
         }
@@ -89,25 +93,27 @@ class User extends CI_Controller {
 
     public function report(){
         if ($this->session->userdata('userid')) {
+            $data['slider'] = $this->content_model->_list_hot_favor();
             $data['services'] = $this->category_model->_list();
             $data['userdetails'] = $this->user_model->details_user($this->session->userdata('userid'));
             $data['current_balance'] = $this->user_model->_current_balance($this->session->userdata('userid'));
             $data['location'] = $this->location_model->_list_root();
             $data['list_content'] = $this->content_model->_list();
             $data['list_order'] = $this->report_model->_list_order($this->session->userdata('userid'));
-            $this->load->view('frontend/index', $data);
+            $this->load->view('template2/index', $data);
         } else {
             redirect('user/login');
         }
     }
     public function read_mess($id) {
         if ($this->session->userdata('userid')) {
+            $data['slider'] = $this->content_model->_list_hot_favor();
             $data['services'] = $this->category_model->_list();
             $data['userdetails'] = $this->user_model->details_user($this->session->userdata('userid'));
             $data['current_balance'] = $this->user_model->_current_balance($this->session->userdata('userid'));
             $data['location'] = $this->location_model->_list_root();
             $data['messagies'] = $this->user_model->_mess_details($id);
-            $this->load->view('frontend/index', $data);
+            $this->load->view('template2/index', $data);
         } else {
             redirect('user/login');
         }
@@ -124,6 +130,7 @@ class User extends CI_Controller {
             }
         }
         if ($this->session->userdata('userid')) {
+            $data['slider'] = $this->content_model->_list_hot_favor();
             $data['services'] = $this->category_model->_list();
             $data['userdetails'] = $this->user_model->details_user($this->session->userdata('userid'));
             $data['current_balance'] = $this->user_model->_current_balance($this->session->userdata('userid'));
@@ -141,7 +148,7 @@ class User extends CI_Controller {
                 
             }
 
-            $this->load->view('frontend/index', $data);
+            $this->load->view('template2/index', $data);
         } else {
             redirect('user/login');
         }
@@ -164,10 +171,10 @@ class User extends CI_Controller {
                 redirect('home/index');
             }
         }
-
+        $data['slider'] = $this->content_model->_list_hot_favor();
         $data['services'] = $this->category_model->_list();
         $data['location'] = $this->location_model->_list_root();
-        $this->load->view('frontend/index', $data);
+        $this->load->view('template2/index', $data);
     }
 
     public function logout() {
@@ -203,9 +210,10 @@ class User extends CI_Controller {
                 unset($_SESSION['captcha']);
             }
         }
+        $data['slider'] = $this->content_model->_list_hot_favor();
         $data['services'] = $this->category_model->_list();
         $data['location'] = $this->location_model->_list_root();
-        $this->load->view('frontend/index', $data);
+        $this->load->view('template2/index', $data);
     }
 
 }
