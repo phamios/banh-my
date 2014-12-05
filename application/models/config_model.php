@@ -69,6 +69,24 @@ class Config_model extends CI_Model {
         $this->db->update('bm_config', $data);
     }
 
+    public function get_cost(){
+        $this->db->where('id',1);
+        $query = $this->db->get('bm_config');
+        if ($query->num_rows() > 0) {
+            foreach($query->result() as $value ){
+                return $value->cost_per_item;
+            }
+        } else {
+            return null;
+        }
+    }
+    public function update_cost_per_item($cost){
+         $data = array(
+                'cost_per_item' => $cost,
+            );
+         $this->db->where('id',1);
+         $this->db->update('bm_config',$data);
+    }
     public function _payment_status($id, $active) {
         $data = array(
             'site_mode' => $active,

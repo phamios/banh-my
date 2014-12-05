@@ -18,9 +18,7 @@
             </div>
             <div class="width100 clear search">
                  <?php echo form_open_multipart('home/search'); ?>
-                    <input name="a" value="search" type="hidden">
-                    <input name="key" value="text" type="hidden">
-                    <input name="q" class="form-control keywork" placeholder="Nhập từ khóa" type="text">
+                    <input name="keyword" class="form-control keywork"  type="text">
                     <select name="price" class="form-control">
                         <option selected="selected" value="0">Giá Cả</option>
                         <option value="300000">Từ 300.000</option>

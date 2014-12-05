@@ -6,7 +6,18 @@
             this._haschanged = true;">
 </form>-->
 <!--<hr/>-->
+<?php if ($this->session->userdata('usertype')): ?>
 <h3>Nội dung</h3>
+
+<ul class="toggle">
+    <li class="icn_categories"><a href="<?php echo site_url('admin/content/index');?>">Quản lý nội dung tin</a></li>
+    <li class="icn_photo"><a href="<?php echo site_url('user/logout'); ?>">Thoát ra</a></li>
+    
+</ul>
+<?php else:?>
+
+<h3>Nội dung</h3>
+
 <ul class="toggle">
     <li class="icn_new_article"><a href="<?php echo site_url('admin/category/index');?>">Quản lý danh mục</a></li>
     <li class="icn_edit_article"><a href="<?php echo site_url('admin/location/index');?>">Quản lý địa điểm, khu vực</a></li>
@@ -14,6 +25,7 @@
     <li class="icn_tags"><a href="<?php echo site_url('admin/type/index');?>">Quản lý thể loại</a></li>
     <li class="icn_photo"><a href="<?php echo site_url('admin/content/gallery/');?>">Thêm ảnh cho bài viết</a></li>
 </ul>
+
 <h3>Users</h3>
 <ul class="toggle">
     <li class="icn_add_user"><a href="<?php echo site_url('admin/user/index');?>">Quản lý thành viên</a></li>
@@ -38,6 +50,7 @@
 <ul class="toggle">
     <li class="icn_settings"><a href="<?php echo site_url('admin/config/index');?>">Tuỳ chọn cấu hình site</a></li>
     <li class="icn_security"><a href="<?php echo site_url('admin/config/payment');?>">Cấu hình thanh toán</a></li>
+    <li class="icn_security"><a href="<?php echo site_url('admin/config/update_cost_per_item');?>">Cấu hình giá</a></li>
     <li class="icn_jump_back"><a href="<?php echo site_url('admincp/logout');?>">Logout</a></li>
 </ul>
 
@@ -46,3 +59,5 @@
     <p><strong>Copyright &copy; 2014 </strong></p>
     <p><a href="<?php echo site_url();?>"><?php echo site_url();?></a></p>
 </footer>
+
+<?php endif;?>

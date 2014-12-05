@@ -35,6 +35,16 @@ class Details extends CI_Controller {
         $newdata = array(
             'title_content' => $this->content_model->_return_title($this->product),
         );
+        $userid = $this->session->userdata('userid');
+        $check = $this->user_model->check_buy($userid, $this->product);
+        
+        $avaiable = 0;
+        if($check == 1){
+            $avaiable = 1;
+        }else{
+            $avaiable = 0;
+        }
+        $data['avaiable'] = $avaiable;
         $data['sub_location'] = $this->load_sub_location();
         $this->session->set_userdata($newdata);
         $this->load->view( "template2/index", $data);

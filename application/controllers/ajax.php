@@ -31,7 +31,12 @@ class Ajax extends CI_Controller {
     }
 
     public function request($userid = null, $cost = null, $type = null, $contentid = null) {
-        if ($this->user_model->check_balance($userid, $cost) == 0) {
+        $check = $this->user_model->check_buy($userid, $contentid);
+        if ($check == 1) {
+            $this->user_model->_update_balance($userid, $cost, $type, $contentid);
+            $result = $this->content_model->_return_cost($contentid);
+            echo $result;
+        } elseif ($this->user_model->check_balance($userid, $cost) == 0) {
             echo "Bạn không đủ tiền mua rồi !";
         } else {
 
@@ -100,7 +105,6 @@ class Ajax extends CI_Controller {
             $site_logo = $value->site_logo;
             $site_template = $value->template;
             $analytic = $value->analytic;
-            
         }
         $newdata = array(
             'site_name' => $site_name,
@@ -110,8 +114,8 @@ class Ajax extends CI_Controller {
             'site_url' => $site_url,
             'site_mode' => $site_mode,
             'site_logo' => $site_logo,
-            'site_template'=>$site_template,
-            'site_analytic'=>$analytic
+            'site_template' => $site_template,
+            'site_analytic' => $analytic
         );
         $this->session->set_userdata($newdata);
     }
@@ -234,7 +238,7 @@ class Ajax extends CI_Controller {
                                                 Giá: <span>' . number_format($value->cost) . ' đ</span>
                                             </div>
                                         </li>';
-                    if($i%2){
+                    if ($i % 2) {
                         echo "</ul>";
                     }
 

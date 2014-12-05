@@ -25,38 +25,65 @@ class Config extends CI_Controller {
     public function payment() {
         if ($this->session->userdata('adminusername') == null) {
             redirect('admincp/login');
-        } else { 
+        } else {
             $data['list_payment'] = $this->config_model->_list_payment();
             $this->load->view('admin/dashboard', $data);
         }
     }
-    
-    public function add_payment(){
+
+    public function update_cost_per_item($status = null) {
+        if ($this->session->userdata('adminusername') == null) {
+            redirect('admincp/login');
+        } else {
+            if (isset($_REQUEST['btt_submit'])) {
+                $cost = $this->input->post('cost_per', true);
+                if (intval($cost)) {
+                    $this->config_model->update_cost_per_item($cost);
+                       redirect('admin/config/update_cost_per_item/success');
+                } else {
+                    redirect('admin/config/update_cost_per_item/false');
+                }
+            }
+            $this->load->model('config_model');
+            $data['costs'] = $this->config_model->get_cost();
+            if ($status == null) {
+                $data['status'] = "";
+            } elseif($status == 'success') {
+                $data['status'] = "Cập nhật giá thành công !";
+            } else {
+                $data['status'] = "Có lỗi trong quá trình nhập liệu !";
+            }
+            
+            $this->load->view('admin/dashboard', $data);
+        }
+    }
+
+    public function add_payment() {
         if ($this->session->userdata('adminusername') == null) {
             redirect('admincp/login');
         } else {
             if (isset($_REQUEST['btt_submit'])) {
                 $name = $this->input->post('payment_name', true);
-                $email = $this->input->post('payment_email', true); 
-                $status = $this->input->post('payment_status',true);
+                $email = $this->input->post('payment_email', true);
+                $status = $this->input->post('payment_status', true);
                 $logo = $this->do_upload_image('./upload/content/', 'payment_logo');
-                $this->config_model->_add_payment($name,$email,$logo,$status);
+                $this->config_model->_add_payment($name, $email, $logo, $status);
                 redirect('admin/config/payment');
-            } 
+            }
             $this->load->view('admin/dashboard');
         }
     }
-    
-    public function payment_status($id=null,$active=null){
+
+    public function payment_status($id = null, $active = null) {
         if ($this->session->userdata('adminusername') == null) {
             redirect('admincp/login');
         } else {
-            $this->config_model->_payment_status($id,$active);
+            $this->config_model->_payment_status($id, $active);
             redirect('admin/category/index');
         }
     }
-    
-    public function payment_del(){ 
+
+    public function payment_del() {
         if ($this->session->userdata('adminusername') == null) {
             redirect('admincp/login');
         } else {
@@ -77,10 +104,10 @@ class Config extends CI_Controller {
                 $site_url = $this->input->post('site_url', true);
                 $site_mode = $this->input->post('site_mode', true);
                 $analytic = $this->input->post('analytic');
-                $template =$this->input->post('template',true);
+                $template = $this->input->post('template', true);
                 $site_logo = $this->do_upload_image('./upload/content/', 'site_logo');
                 if ($id <> 0) {
-                    $this->config_model->_update($site_name, $site_meta, $site_description, $site_footer, $site_url, $site_mode, $site_logo,$analytic,$template);
+                    $this->config_model->_update($site_name, $site_meta, $site_description, $site_footer, $site_url, $site_mode, $site_logo, $analytic, $template);
                     redirect('admin/config');
                 }
             }
@@ -88,7 +115,7 @@ class Config extends CI_Controller {
             $this->load->view('admin/dashboard', $data);
         }
     }
-    
+
     public function edit($id = 0) {
         if ($this->session->userdata('adminusername') == null) {
             redirect('admincp/login');

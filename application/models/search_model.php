@@ -47,11 +47,10 @@ class Search_model extends CI_Model {
                     bm_category.active, 
                     bm_category.cate_image, 
                     bm_category.id
-            FROM bm_category INNER JOIN bm_catecontent ON bm_category.id = bm_catecontent.cateid
+                    FROM bm_category INNER JOIN bm_catecontent ON bm_category.id = bm_catecontent.cateid
                      INNER JOIN bm_content ON bm_content.id = bm_catecontent.contentid
                      INNER JOIN bm_location ON bm_location.id = bm_content.localid  
                      WHERE (1=1)
-                     
                 ";
         
 //        $where= array(); 
@@ -59,12 +58,29 @@ class Search_model extends CI_Model {
             $sql .= " AND bm_content.title like '".htmlentities(addslashes($keyword))."%' ";
         }
         if ($cost <> 0) {
-            $sql .= " AND  0 < bm_content.cost <= $cost ";
+            if($cost > 900000){
+                $sql .= " AND  bm_content.cost > $cost ";
+            }
+            if($cost == 300000){
+                $sql .= " AND  bm_content.cost >= $cost ";
+            }
+            if($cost == 500000){
+                $sql .= " AND  bm_content.cost >= $cost ";
+            }
+            if($cost == 600000){
+                $sql .= " AND  bm_content.cost >= $cost ";
+            }
+            if($cost == 800000){
+                $sql .= " AND  bm_content.cost >= $cost ";
+            } else {
+                $sql .= " AND  0 < bm_content.cost <= $cost ";
+            }
+            
         }
         if ($cateid <> 0) {
             $sql .= "  AND  bm_category.id = $cateid ";
         }
-
+        //echo $sql; die;
         $query = $this->db->query($sql) ;
         if ($query->num_rows() > 0) {
             return $query->result();

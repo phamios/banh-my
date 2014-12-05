@@ -9,6 +9,7 @@
         });
     });
 </script>
+
 <?php if ($content_details): ?>
     <?php foreach ($content_details as $content): ?>
         <div class="content_main" style="overflow:hidden; margin-bottom:10px; clear:both;">
@@ -77,12 +78,16 @@
                         </a>
                     <?php else: ?>
                         <a class="showinfo" id="getdata" title=""> 
-                            Lấy số chén NGAY BÂY GIỜ 
+                            <?php if ($avaiable == 1): ?>
+                                <?php echo "Số em này: ".$content->content_phone; ?>
+                            <?php else: ?>
+                                Lấy số chén  ( số tiền phải trả: <?php echo number_format($this->session->userdata('cost')); ?> đ )
+                            <?php endif; ?>
                         </a>
                     <?php endif; ?>  
                     <?php
                     $userid = $this->session->userdata('userid');
-                    $cost = $content->cost;
+                    $cost = $this->session->userdata('cost');
                     $type = 0;
                     $contentid = $content->contentid;
                     ?>
@@ -103,7 +108,9 @@
                 </div>
                 <div style="clear:both; width:100%;padding-top:20px;">
                     <div id="info-girl-contact" class="buttona">  
+                       
                     </div>
+
                 </div>
                 <div style="clear:both; width:100%;padding-top:20px;">
                     <div class="info-girl" id="info-girl">  
@@ -123,7 +130,7 @@
                 </div>
                 <div style="clear:both; width:100%;padding-top:20px;">
                     <b style="color: wheat;"> Điểm tín dụng:</b>
-                    <b style="color: white;"><?php echo ($content->review*10)/100; ?></b>
+                    <b style="color: white;"><?php echo ($content->review * 10) / 100; ?></b>
                     <img src="<?php echo base_url('src/images/rating.png') ?>" alt=""/>
                 </div>
                 <div style="clear:both; width:100%;padding-top:20px;">

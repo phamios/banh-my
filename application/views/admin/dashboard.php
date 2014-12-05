@@ -71,6 +71,11 @@
                 <?php if ($this->router->fetch_method() == 'payment'): ?>
                     <?php $this->load->view('admin/config/payment'); ?>
                 <?php endif; ?>
+
+                <?php if ($this->router->fetch_method() == 'update_cost_per_item'): ?>
+                    <?php $this->load->view('admin/config/update_cost_per_item'); ?>
+                <?php endif; ?>
+
             <?php endif; ?>
 
 

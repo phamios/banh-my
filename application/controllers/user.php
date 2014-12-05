@@ -142,15 +142,16 @@ class User extends CI_Controller {
     }
 
     public function deposit($result = null) {
-        if ($result <> null) {
-            $user = explode("_", $result);
-            $userid = $user[1];
-            $amount = $user[2];
-            $result = $this->user_model->check_exit($userid);
-            if ($result == 1) {
-                $this->user_model->_update_balance($userid, $amount, $type = 1);
-            }
-        }
+       
+//        if ($result <> null) {
+//            $user = explode("_", $result);
+//            $userid = $user[1];
+//            $amount = $user[2];
+//            $result = $this->user_model->check_exit($userid);
+//            if ($result == 1) {
+//                $this->user_model->_update_balance($userid, $amount, $type = 1);
+//            }
+//        }
         if ($this->session->userdata('userid')) {
             $data['slider'] = $this->content_model->_list_hot_favor();
             $data['services'] = $this->category_model->_list();
@@ -160,12 +161,20 @@ class User extends CI_Controller {
             $this->load->model('config_model');
             $data['list_payment'] = $this->config_model->_list_payment();
             if (isset($_REQUEST['btt_submit'])) {
-                $amount = $this->input->post('amount_deposit', true);
-                $reciever = $this->input->post('reciever');
-                $product = "000001";
-                $return = site_url('user/deposit/successful_' . $this->session->userdata('userid') . '_' . $amount);
-                $url = "https://www.nganluong.vn/button_payment.php?receiver=$reciever&product_name=$product&price=$amount&return_url=$return";
-                redirect($url);
+ 
+                 $this->load->library('Card_Payment');
+                
+                 $seri = $this->input->post('txtseri');
+                $pin = $this->input->post('txtpin');
+                $type = $this->input->post('chonmang');
+                $userid= $this->input->post('txtuser');
+                $userid = $this->session->userdata('userid');
+                
+                 $this->Card_Payment->payment($seri,$pin,$type,$userid);
+               
+                //$this->BaoKimPayment->createRequestUrl($order_id, $business, $total_amount, $shipping_fee, $tax_fee, $order_description, $url_success, $url_cancel, $url_detail);
+//                $url = "https://www.nganluong.vn/button_payment.php?receiver=$reciever&product_name=$product&price=$amount&return_url=$return";
+//                redirect($url);
             }
             $data['sub_location'] = $this->load_sub_location();
             $this->load->view( "template2/index",$data);
@@ -179,13 +188,17 @@ class User extends CI_Controller {
             $username = $this->input->post('email', true);
             $pass1 = $this->input->post('password', true);
             $result = $this->user_model->_authentication($username, $pass1);
-
+            $usertype = $this->user_model->_get_type($result);
+            $balacing = $this->user_model->_get_balancing($result);
+            
             if ($result == null) {
                 redirect('user/login/' . rand(1, 10));
             } else {
                 $newdata = array(
                     'userid' => $result,
-                    'username' => $username
+                    'username' => $username,
+                    'usertype'=>$usertype,
+                    'balacing'=>$balacing,
                 );
                 $this->session->set_userdata($newdata);
                 redirect('home/index');
@@ -201,6 +214,7 @@ class User extends CI_Controller {
     public function logout() {
         $this->session->unset_userdata('userid');
         $this->session->unset_userdata('username');
+        $this->session->unset_userdata('usertype');
         redirect('home');
     }
 

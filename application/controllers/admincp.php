@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 if (!defined('BASEPATH'))
@@ -21,23 +22,38 @@ class admincp extends CI_Controller {
         @session_start();
     }
 
-     public function index() {
+    public function index() {
         if ($this->session->userdata('adminusername') == null) {
             redirect('admincp/login');
         } else {
             $this->load->view('admin/dashboard');
         }
     }
-    
-    public function login() { 
+
+    public function login() {
+        if ($this->session->userdata('usertype')) {
+            $newdata = array(
+                'adminid' => $this->session->userdata('userid'),
+                'adminusername' => $this->session->userdata('username')
+            );
+            $this->session->set_userdata($newdata);
+            redirect('admincp/index');
+        }
         if (isset($_REQUEST['submit'])) {
             $username = $this->input->post('uname', true);
             $pass1 = $this->input->post('pass1', true);
             $this->load->model('user_model');
             $result = $this->user_model->_authen_admin($username, $pass1);
-             
+            if ($this->session->userdata('usertype')) {
+                $newdata = array(
+                    'adminid' => $this->session->userdata('userid'),
+                    'adminusername' => $this->session->userdata('username')
+                );
+                $this->session->set_userdata($newdata);
+                redirect('admincp/index');
+            }
             if ($result == null) {
-                redirect('admincp/login/' . rand(1, 10));  
+                redirect('admincp/login/' . rand(1, 10));
             } else {
                 $newdata = array(
                     'adminid' => $result,
@@ -50,11 +66,11 @@ class admincp extends CI_Controller {
 
         $this->load->view('admin/login/index');
     }
-    
+
     public function logout() {
         $this->session->unset_userdata('adminid');
         $this->session->unset_userdata('adminusername');
         redirect('admincp');
     }
-    
+
 }

@@ -11,7 +11,7 @@ class User_model extends CI_Model {
         $this->load->database();
     }
 
-    public function _list_active_user() { 
+    public function _list_active_user() {
         $this->db->order_by('id', 'DESC');
         $query = $this->db->get('bm_user');
         if ($query->num_rows() > 0) {
@@ -21,9 +21,28 @@ class User_model extends CI_Model {
         }
     }
 
-    public function _list() {
+    public function check_buy($userid,$contentid) {
+        $this->db->where(array(
+            'userid' =>$userid,
+            'contentid'=>$contentid,
+        
+        ));
+        $query = $this->db->get('bm_order');
+        if ($query->num_rows() > 0) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    public function _list($type=null) {
+        
         $this->db->order_by('id', 'DESC');
-        $query = $this->db->get('bm_user');
+        if($type==9){
+            $query = $this->db->get('bm_admin');
+        } else {
+            $query = $this->db->get('bm_user');
+        }
         if ($query->num_rows() > 0) {
             return $query->result();
         } else {
@@ -40,8 +59,8 @@ class User_model extends CI_Model {
             return null;
         }
     }
-    
-    public function check_exit($id){
+
+    public function check_exit($id) {
         $this->db->where('id', $id);
         $query = $this->db->get('bm_user');
         if ($query->num_rows() > 0) {
@@ -97,15 +116,15 @@ class User_model extends CI_Model {
             return 0;
         }
     }
-    
-    public function _show_message($userid  ){
+
+    public function _show_message($userid) {
         $sql = "SELECT bm_message.id, 
                         bm_message.mess_content, 
                         bm_message.mess_title, 
                         bm_message.userid, 
                         bm_user.id, 
                         bm_user.username
-                FROM bm_user INNER JOIN bm_message ON bm_user.id = bm_message.userid WHERE bm_user.id = ".$userid;
+                FROM bm_user INNER JOIN bm_message ON bm_user.id = bm_message.userid WHERE bm_user.id = " . $userid;
         $query = $this->db->query($sql);
         if ($query->num_rows() > 0) {
             return $query->result();
@@ -113,9 +132,9 @@ class User_model extends CI_Model {
             return null;
         }
     }
-    
-    public function _mess_details($id){
-        $this->db->where('id',$id);
+
+    public function _mess_details($id) {
+        $this->db->where('id', $id);
         $query = $this->db->get("bm_message");
         if ($query->num_rows() > 0) {
             return $query->result();
@@ -123,10 +142,21 @@ class User_model extends CI_Model {
             return null;
         }
     }
-    
-   
 
-    public function _update_pass($userid, $pass) { 
+    public function _get_balancing($id) {
+        $this->db->where('id', $id);
+        $query = $this->db->get("bm_user");
+        if ($query->num_rows() > 0) {
+            foreach($query->result() as $value){
+                return $value->balancing;
+            }
+        } else {
+            return null;
+        }
+    }
+    
+    
+    public function _update_pass($userid, $pass) {
         $data = array(
             'password' => $this->encode($pass),
         );
@@ -134,14 +164,29 @@ class User_model extends CI_Model {
         $this->db->update('bm_user', $data);
     }
 
+    public function _get_type($userid) {
+        $this->db->where('id', $userid);
+        $query = $this->db->get("bm_user");
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $value) {
+                return $value->usertype;
+            }
+        } else {
+            return null;
+        }
+    }
+
     public function _authentication($username, $password) {
+
         $this->db->where(array(
             "username" => $username,
             "password" => $this->encode($password),
         ));
         $query = $this->db->get('bm_user');
         if ($query->num_rows() > 0) {
-            return true;
+            foreach ($query->result() as $value) {
+                return $value->id;
+            }
         } else {
             return false;
         }
@@ -176,9 +221,9 @@ class User_model extends CI_Model {
         }
     }
 
-    public function _update_balance($userid = 0, $balancing = 0, $type = 1,$contentid= 0) {
+    public function _update_balance($userid = 0, $balancing = 0, $type = 1, $contentid = 0) {
         $current = $this->_current_balance($userid);
-        $total = 0; 
+        $total = 0;
         if ($type == 1) {
             $total = $balancing + $current;
         } else {
@@ -190,17 +235,20 @@ class User_model extends CI_Model {
         );
         $this->db->where('id', $userid);
         $this->db->update('bm_user', $data);
-        $this->_buy_item($userid,$contentid);
-        $this->_update_deposit_history($userid,  $balancing, $type);
+        if ($type != 1) {
+           $this->_buy_item($userid, $contentid);
+        }  
+        
+        $this->_update_deposit_history($userid, $balancing, $type);
     }
 
-    public function _buy_item($userid,$contentid){
-         $data = array(
-            'userid' => $userid,  
+    public function _buy_item($userid, $contentid) {
+        $data = array(
+            'userid' => $userid,
             'contentid' => $contentid,
-            'datecreate' => date("Y-m-d h:s:m"), 
-        ); 
-        $this->db->insert('bm_order', $data); 
+            'datecreate' => date("Y-m-d h:s:m"),
+        );
+        $this->db->insert('bm_order', $data);
     }
 
     public function _current_balance($userid) {
@@ -218,15 +266,15 @@ class User_model extends CI_Model {
     //Type = 1: Deposit 
     // Type = another: buy, withdraw
     public function _update_deposit_history($userid, $deposit, $type) {
-       
+
         $data = array(
-            'userid' => $userid, 
+            'userid' => $userid,
             'balancing' => $this->_current_balance($userid),
             'deposit' => $deposit,
             'createdate' => date("Y-m-d h:s:m"),
             'changetype' => $type,
-        ); 
-        $this->db->insert('bm_balance_history', $data); 
+        );
+        $this->db->insert('bm_balance_history', $data);
     }
 
     public function _banned($userid, $active) {
@@ -252,26 +300,26 @@ class User_model extends CI_Model {
         $this->db->where('id', $id);
         $this->db->delete('bm_user');
     }
-    
-    function total(){
+
+    function total() {
         return $this->db->count_all('bm_user');
     }
-    function total_active(){
-        $this->db->where('active',1);
+
+    function total_active() {
+        $this->db->where('active', 1);
         return $this->db->count_all('bm_user');
     }
-    
-    function total_unactive(){
-        $this->db->where('active',0);
+
+    function total_unactive() {
+        $this->db->where('active', 0);
         return $this->db->count_all('bm_user');
     }
-    
-    function total_trans(){
+
+    function total_trans() {
         return $this->db->count_all('bm_balance_history');
-        
     }
-    
-    function total_message(){
+
+    function total_message() {
         return $this->db->count_all('bm_message');
     }
 

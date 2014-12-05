@@ -30,6 +30,12 @@ class Sub_ajax extends CI_Controller {
         @session_start();
     }
 
+    public function deposit($userid,$seri, $pin, $type) {
+        $this->load->library('card_payment');  
+        $result = $this->card_payment->payment($seri, $pin, $type, $userid);
+         $this->user_model->_update_balance($result['userid'], $result['xu'], $type = 1);
+    }
+
     public function request($userid = null, $cost = null, $type = null, $contentid = null) {
         if ($this->user_model->check_balance($userid, $cost) == 0) {
             echo "Bạn không đủ tiền mua rồi !";
@@ -53,7 +59,7 @@ class Sub_ajax extends CI_Controller {
             echo "</select>";
         }
     }
- 
+
     public function content_favor() {
         $data = $this->content_model->_list_hot_favor();
         if ($data) {
@@ -142,7 +148,6 @@ class Sub_ajax extends CI_Controller {
             $site_logo = $value->site_logo;
             $site_template = $value->template;
             $analytic = $value->analytic;
-            
         }
         $newdata = array(
             'site_name' => $site_name,
@@ -152,8 +157,8 @@ class Sub_ajax extends CI_Controller {
             'site_url' => $site_url,
             'site_mode' => $site_mode,
             'site_logo' => $site_logo,
-            'site_template'=>$site_template,
-            'site_analytic'=>$analytic
+            'site_template' => $site_template,
+            'site_analytic' => $analytic
         );
         $this->session->set_userdata($newdata);
     }

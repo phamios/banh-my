@@ -29,6 +29,7 @@ class Home extends CI_Controller {
             $site_url = $value->site_url;
             $site_mode = $value->site_mode;
             $site_logo = $value->site_logo;
+            $cost = $value->cost_per_item;
         }
         $search = $this->search_model->_list_top();
 
@@ -41,6 +42,7 @@ class Home extends CI_Controller {
             'site_url' => $site_url,
             'site_mode' => $site_mode,
             'site_logo' => $site_logo,
+            'cost'=>$cost,
         );
 
 
@@ -68,7 +70,7 @@ class Home extends CI_Controller {
         $keyword = null;
         $result = null;
         if (isset($_REQUEST['sub_search'])) {
-            $keyword = $this->input->post('q', true);
+            $keyword = $this->input->post('keyword', true);
             $cost = $this->input->post('price', true);
             $cateid = $this->input->post('service', true);
             $this->search_model->_add($keyword);

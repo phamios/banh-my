@@ -33,8 +33,15 @@ class Content extends CI_Controller {
         if ($this->session->userdata('adminusername') == null) {
             redirect('admincp/login');
         } else {
-            $data['list_content'] = $this->content_model->_list();
-            $data['list_user'] = $this->user_model->_list();
+            if($this->session->userdata('usertype') == 1){
+                $data['list_content'] = $this->content_model->_list($this->session->userdata('userid'));
+                $data['list_user'] = $this->user_model->_list();
+            } else {
+                $data['list_content'] = $this->content_model->_list();
+                $data['list_user'] = $this->user_model->_list(9);
+            }
+            
+            
             $data['list_category'] = $this->category_model->_list();
             $data['list_location'] = $this->location_model->_list();
             $data['list_location_root'] = $this->location_model->_list_root();

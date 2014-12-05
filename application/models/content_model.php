@@ -11,7 +11,10 @@ class Content_model extends CI_Model {
         $this->load->database();
     }
 
-    public function _list() {
+    public function _list($userid = null) {
+        if($userid <> null){
+            $this->db->where('userid',$userid);
+        }
         $this->db->order_by('id', 'DESC');
         $query = $this->db->get('bm_content');
         if ($query->num_rows() > 0) {
@@ -75,6 +78,7 @@ class Content_model extends CI_Model {
                     bm_content.content, 
                     bm_content.cost, 
                     bm_content.images, 
+                    bm_content.content_phone,
                     bm_content.datecreated, 
                     bm_content.`status`, 
                     bm_content.review, 
